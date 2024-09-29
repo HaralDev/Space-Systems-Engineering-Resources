@@ -1,6 +1,8 @@
 # SpaceResources
 A list of useful resources for space mission design, visualisations, scripts and more
 
+![Header image](SpaceResource_header.webp)
+
 ## Space Debris visualations
 * [LeoLabs visualiser](https://platform.leolabs.space/visualization)
 
