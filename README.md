@@ -10,10 +10,12 @@ A list of useful resources for space mission design, visualisations, scripts and
 * [LeoLabs visualiser](https://platform.leolabs.space/visualization)
 
 ## Free courses
-* [Orbital Mechanics with Python (see also AWP Github package below) - free on YouTube](https://youtube.com/playlist?list=PLOIRBaljOV8gn074rWFWYP1dCr2dJqWab&si=cxbmqzfNNqwVozZL)
+* [Orbital Mechanics with Python - free on YouTube](https://youtube.com/playlist?list=PLOIRBaljOV8gn074rWFWYP1dCr2dJqWab&si=cxbmqzfNNqwVozZL)
+  * [Github Repo - Astrodynamics with Python - AWP](https://github.com/alfonsogonzalez/AWP)
 * [Build a Cubesat - free on Youtube](https://youtube.com/@buildacubesat?si=3oTdnVCkyS1UhjHu)
-* [Gentry Lee's - So You Want to be a Systems Engineer?](https://youtu.be/E6U_Ap2bDaE?si=HCgxD6N37XB2XAyF)
-* [Gentry Lee's - Systems Engineering When the Canvas Is Blank](https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn)
+* Gentry Lee videos on Systems Engineering
+  * [Gentry Lee's - So You Want to be a Systems Engineer?](https://youtu.be/E6U_Ap2bDaE?si=HCgxD6N37XB2XAyF)
+  * [Gentry Lee's - Systems Engineering When the Canvas Is Blank](https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn)
 * [Common Definitions of Systems Engineering- Space Systems Engineering 101 w/ NASA](https://youtu.be/rrBg-hTUM_Q?si=wnZTzlQ5YlFFIs2e)
 
 ## Astrodynamics packages
