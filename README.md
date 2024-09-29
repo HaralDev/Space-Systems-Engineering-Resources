@@ -12,9 +12,12 @@ A list of useful resources for space mission design, visualisations, scripts and
 ## Free courses
 * [Orbital Mechanics with Python - free on YouTube](https://www.youtube.com/watch?v=rNpnzNKQrNg&list=PLOIRBaljOV8gn074rWFWYP1dCr2dJqWab)
 * [Build a Cubesat - free on Youtube](https://youtube.com/@buildacubesat?si=3oTdnVCkyS1UhjHu)
-* [Gentry Lee's - So You Want to be a Systems Engineer?](https://www.youtube.com/watch?v=E6U_Ap2bDaE)
-* [Gentry Lee's - Systems Engineering When the Canvas Is Blank](https://www.youtube.com/watch?v=3S5cgLxxZ14)
-* [Common Definitions of Systems Engineering- Space Systems Engineering 101 w/ NASA](https://www.youtube.com/watch?v=rrBg-hTUM_Q)
+* [Gentry Lee's - So You Want to be a Systems Engineer?](https://youtu.be/E6U_Ap2bDaE?si=HCgxD6N37XB2XAyF)
+* [Gentry Lee's - Systems Engineering When the Canvas Is Blank](https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn)
+* [Common Definitions of Systems Engineering- Space Systems Engineering 101 w/ NASA](https://youtu.be/rrBg-hTUM_Q?si=wnZTzlQ5YlFFIs2e)
+
+## Astrodynamics packages
+* [Astrodynamics with Python - AWP](https://github.com/alfonsogonzalez/AWP)
 
 ## Other useful master lists:
 * [awesome-space](https://github.com/orbitalindex/awesome-space/blob/master/README.md)
