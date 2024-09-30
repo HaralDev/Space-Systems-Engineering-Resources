@@ -62,6 +62,6 @@ Newsletters that I personally follow and recommend signing up for.
 High-density articles on various topics.
 * [LEO vs. MEO vs. GEO Satellites: What’s the Difference?](https://anywaves.com/resources/blog/leo-meo-geo-satellites-definition-difference/)
 
-* ## Other useful master lists:
+## Other useful master lists:
 * [awesome-space](https://github.com/orbitalindex/awesome-space/blob/master/README.md)
 * [awesome-astronomy](https://github.com/mbiesiad/awesome-astronomy)
