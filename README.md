@@ -27,10 +27,15 @@ A list of useful resources for space mission design, space systems engineering, 
 ## Astrodynamics packages
 * [Astrodynamics with Python - AWP](https://github.com/alfonsogonzalez/AWP)
 
-## Other useful master lists:
-* [awesome-space](https://github.com/orbitalindex/awesome-space/blob/master/README.md)
-* [awesome-astronomy](https://github.com/mbiesiad/awesome-astronomy)
-
 ## Newsletters
+Newsletters that I personally follow and recommend signing up for. 
 * [Payload Space](https://pyld.omeclk.com/portal/wts/ue%5EcnFeggqegg6mN%5E60yq8%7Cg-sPsvF0jOzTc)
 * [Space Investor](https://thespaceinvestor.com/)
+
+## Articles
+High-density articles on various topics.
+* [LEO vs. MEO vs. GEO Satellites: What’s the Difference?](https://anywaves.com/resources/blog/leo-meo-geo-satellites-definition-difference/)
+
+* ## Other useful master lists:
+* [awesome-space](https://github.com/orbitalindex/awesome-space/blob/master/README.md)
+* [awesome-astronomy](https://github.com/mbiesiad/awesome-astronomy)
