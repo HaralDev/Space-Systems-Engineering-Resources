@@ -16,6 +16,9 @@ A list of useful resources for space mission design, space systems engineering, 
   * [isstracker](https://isstracker.pl/en)
 
 ## Free courses
+* [Plain English: Basic Orbit Shapes](https://youtu.be/pRvVK2m_wGE?si=6pnQ8IVz3JazXULe)
+* [Plain English: Orbital Mechanics by Nick Morgan](https://youtu.be/tJiAkBxuqfs?si=x1ahbnxIJg1Faupv)
+* [Geometry of Parabolic and Hyperbolic Orbits](https://youtu.be/1-qehYJPUug?si=58UHMKfcntBF8Tro)
 * [Orbital Mechanics with Python - free on YouTube](https://youtube.com/playlist?list=PLOIRBaljOV8gn074rWFWYP1dCr2dJqWab&si=cxbmqzfNNqwVozZL)
   * [Github Repo - Astrodynamics with Python - AWP](https://github.com/alfonsogonzalez/AWP)
 * [Build a Cubesat - free on Youtube](https://youtube.com/@buildacubesat?si=3oTdnVCkyS1UhjHu)
@@ -23,6 +26,7 @@ A list of useful resources for space mission design, space systems engineering, 
   * [Gentry Lee's - So You Want to be a Systems Engineer?](https://youtu.be/E6U_Ap2bDaE?si=HCgxD6N37XB2XAyF)
   * [Gentry Lee's - Systems Engineering When the Canvas Is Blank](https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn)
 * [Common Definitions of Systems Engineering- Space Systems Engineering 101 w/ NASA](https://youtu.be/rrBg-hTUM_Q?si=wnZTzlQ5YlFFIs2e)
+
 
 ## Astrodynamics packages
 * [Astrodynamics with Python - AWP](https://github.com/alfonsogonzalez/AWP)
