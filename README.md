@@ -1,5 +1,5 @@
 # SpaceResources
-A list of useful resources for space mission design, space systems engineering, courses, visualisations, scripts and more. The focus is on free, open-source solutions. The list includes a range of fast, plain-english and web-based resources and more advanced ones.
+A curated list of useful resources for space mission design, space systems engineering, courses, visualisations, scripts and more. The focus is on free, open-source solutions. The list includes a range of fast, plain-english and web-based resources and more advanced ones.
 
 ![Header image](SpaceResource_header.webp)
 
@@ -45,6 +45,9 @@ This is the list that includes all the resources I found grouped per category.
   * [Gentry Lee's - Systems Engineering When the Canvas Is Blank](https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn)
 * [Common Definitions of Systems Engineering- Space Systems Engineering 101 w/ NASA](https://youtu.be/rrBg-hTUM_Q?si=wnZTzlQ5YlFFIs2e)
 * [MIT OpenCourseWare: Introduction to Space Systems Engineering](https://ocw.mit.edu/courses/16-89j-space-systems-engineering-spring-2007/)
+
+## Space System Engineering tools
+* CubeSatSim is a low cost satellite emulator that runs on solar panels and batteries, transmits UHF radio telemetry, has a 3D printed frame, and can be extended by additional sensors and modules: [CubeSatSim](https://github.com/alanbjohnston/CubeSatSim)
 
 
 ## Astrodynamics software and packages
