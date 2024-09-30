@@ -7,7 +7,7 @@ A list of useful resources for space mission design, space systems engineering, 
 If you don't know much about space, orbits, engineering, this is where you start.
 * Plain English: [Basic Orbit Shapes](https://youtu.be/pRvVK2m_wGE?si=6pnQ8IVz3JazXULe)
 * Quick Web-Based [orbit visualiser](https://orbitalmechanics.info/)
-* See all satellites and debris in real time: [satellitetracker3d](https://satellitetracker3d.com/)
+* See all satellites and debris in real time: [LeoLabs](https://platform.leolabs.space/visualization), [satellitetracker3d](https://satellitetracker3d.com/)
 * Learn about space systems engineering: the process satellites are designed: [Gentry Lee's - Systems Engineering When the Canvas Is Blank](https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn)
 * [Sign up for these newsletters](./README.md#Newsletters) to gradually infiltrate the space industry
 
