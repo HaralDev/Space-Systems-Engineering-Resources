@@ -1,5 +1,5 @@
 # SpaceResources
-A list of useful resources for space mission design, visualisations, scripts and more. The focus is on free, open-source solutions.
+A list of useful resources for space mission design, space systems engineering, courses, visualisations, scripts and more. The focus is on free, open-source solutions.
 
 ![Header image](SpaceResource_header.webp)
 
