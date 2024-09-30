@@ -47,8 +47,11 @@ This is the list that includes all the resources I found grouped per category.
 * [MIT OpenCourseWare: Introduction to Space Systems Engineering](https://ocw.mit.edu/courses/16-89j-space-systems-engineering-spring-2007/)
 
 
-## Astrodynamics packages
+## Astrodynamics software and packages
 * [Astrodynamics with Python - AWP](https://github.com/alfonsogonzalez/AWP)
+
+## Astronomy software and packages
+* OpenSpace is open-source interactive data visualization software [openspaceproject](https://www.openspaceproject.com/)
 
 ## Newsletters
 Newsletters that I personally follow and recommend signing up for. 
