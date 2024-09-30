@@ -29,6 +29,7 @@ This is the list that includes all the resources I found grouped per category.
 ## Free courses
 * [Plain English: Basic Orbit Shapes](https://youtu.be/pRvVK2m_wGE?si=6pnQ8IVz3JazXULe)
 * [Plain English: Orbital Mechanics by Nick Morgan](https://youtu.be/tJiAkBxuqfs?si=x1ahbnxIJg1Faupv)
+* [Orbit Types by NSSI](https://youtu.be/BvjlBpP4zU8?si=3GGbxjtBLVI0Obvu)
 * [Geometry of Parabolic and Hyperbolic Orbits](https://youtu.be/1-qehYJPUug?si=58UHMKfcntBF8Tro)
 * [Orbital Mechanics with Python - free on YouTube](https://youtube.com/playlist?list=PLOIRBaljOV8gn074rWFWYP1dCr2dJqWab&si=cxbmqzfNNqwVozZL)
   * [Github Repo - Astrodynamics with Python - AWP](https://github.com/alfonsogonzalez/AWP)
