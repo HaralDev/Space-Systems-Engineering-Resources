@@ -24,3 +24,8 @@ A list of useful resources for space mission design, visualisations, scripts and
 ## Other useful master lists:
 * [awesome-space](https://github.com/orbitalindex/awesome-space/blob/master/README.md)
 * [awesome-astronomy](https://github.com/mbiesiad/awesome-astronomy)
+
+## Newsletters
+* [Payload Space](https://pyld.omeclk.com/portal/wts/ue%5EcnFeggqegg6mN%5E60yq8%7Cg-sPsvF0jOzTc)
+* [Space Investor](https://thespaceinvestor.com/)
+* 
