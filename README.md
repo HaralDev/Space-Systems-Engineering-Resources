@@ -34,4 +34,3 @@ A list of useful resources for space mission design, space systems engineering, 
 ## Newsletters
 * [Payload Space](https://pyld.omeclk.com/portal/wts/ue%5EcnFeggqegg6mN%5E60yq8%7Cg-sPsvF0jOzTc)
 * [Space Investor](https://thespaceinvestor.com/)
-* 
