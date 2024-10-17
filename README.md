@@ -5,19 +5,18 @@ A curated list of useful resources for space mission design, space systems engin
 
 # Space Engineering 101
 If you don't know much about space, orbits, engineering, this is where you start.
-* Plain English: [Basic Orbit Shapes](https://youtu.be/pRvVK2m_wGE?si=6pnQ8IVz3JazXULe)
-* Quick Web-Based [orbit visualiser](https://orbitalmechanics.info/)
-* See all satellites and debris in real time: [LeoLabs](https://platform.leolabs.space/visualization), [satellitetracker3d](https://satellitetracker3d.com/)
-* Learn about space systems engineering: the process satellites are designed: [Gentry Lee's - Systems Engineering When the Canvas Is Blank](https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn)
+* [Basic Orbit Shapes](https://youtu.be/pRvVK2m_wGE?si=6pnQ8IVz3JazXULe) - Orbits in plain english
+* [orbit visualiser](https://orbitalmechanics.info/) - Quick web-based orbit visualiser
+* [LeoLabs](https://platform.leolabs.space/visualization), [satellitetracker3d](https://satellitetracker3d.com/) - See all satellites and debris in real time
+* [Gentry Lee's - Systems Engineering When the Canvas Is Blank](https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn) - Learn about space systems engineering: the process satellites are designed
 * [Sign up for these newsletters](./README.md#Newsletters) to gradually infiltrate the space industry
 
 # Full list of resources
-This is the list that includes all the resources I found grouped per category.
 
 ## Orbit visualisers
-* [Quick Web-Based orbit visualiser](https://orbitalmechanics.info/)
+* [orbitalmechanics](https://orbitalmechanics.info/) 
 
-## Space Objects Trackers
+## Space Object Trackers
 * [LeoLabs visualiser](https://platform.leolabs.space/visualization)
 * [satellitetracker3d](https://satellitetracker3d.com/)
 * [orbtrack](https://www.orbtrack.org/)
@@ -46,20 +45,22 @@ This is the list that includes all the resources I found grouped per category.
 * [Common Definitions of Systems Engineering- Space Systems Engineering 101 w/ NASA](https://youtu.be/rrBg-hTUM_Q?si=wnZTzlQ5YlFFIs2e)
 * [MIT OpenCourseWare: Introduction to Space Systems Engineering](https://ocw.mit.edu/courses/16-89j-space-systems-engineering-spring-2007/)
 
-## Space System Engineering tools
-* CubeSatSim is a low cost satellite emulator that runs on solar panels and batteries, transmits UHF radio telemetry, has a 3D printed frame, and can be extended by additional sensors and modules: [CubeSatSim](https://github.com/alanbjohnston/CubeSatSim)
 
-
-## Astrodynamics software and packages
-* [Astrodynamics with Python - AWP](https://github.com/alfonsogonzalez/AWP)
-
-## Astronomy software and packages
-* OpenSpace is open-source interactive data visualization software [openspaceproject](https://www.openspaceproject.com/)
+## Software, packages, tools
+* [CubeSatSim](https://github.com/alanbjohnston/CubeSatSim)- CubeSatSim is a low cost satellite emulator that runs on solar panels and batteries, transmits UHF radio telemetry, has a 3D printed frame, and can be extended by additional sensors and modules
+* [AWP](https://github.com/alfonsogonzalez/AWP) - Astrodynamics with Python
+* [openspaceproject](https://www.openspaceproject.com/) -  OpenSpace is open-source Astronomy interactive data visualization software
 
 ## Newsletters
 Newsletters that I personally follow and recommend signing up for. 
-* [Payload Space](https://pyld.omeclk.com/portal/wts/ue%5EcnFeggqegg6mN%5E60yq8%7Cg-sPsvF0jOzTc)
-* [Space Investor](https://thespaceinvestor.com/)
+* For trends, high-level
+  * [Payload Space](https://pyld.omeclk.com/portal/wts/ue%5EcnFeggqegg6mN%5E60yq8%7Cg-sPsvF0jOzTc)
+  * [Space Investor](https://thespaceinvestor.com/)
+  * [Bloomberg Space Business](https://www.bloomberg.com/account/newsletters/business-of-space)
+* More technical
+  * [Orbital Index](https://orbitalindex.com/subscribe/)
+  * [Jatan's Space](https://jatan.space/)
+  * [NASA newsletter](https://lp.constantcontactpages.com/sl/7ThAX6O/signup)
 
 ## Articles
 High-density articles on various topics.
@@ -68,3 +69,4 @@ High-density articles on various topics.
 ## Other useful master lists:
 * [awesome-space](https://github.com/orbitalindex/awesome-space/blob/master/README.md)
 * [awesome-astronomy](https://github.com/mbiesiad/awesome-astronomy)
+* [Awesome-GIS](https://github.com/sshuair/awesome-gis) - A collection of geospatial related sources, including cartographic tools, geoanalysis tools, developer tools, data, conference & communities, news, massive open online course, some amazing map sites, and more.
