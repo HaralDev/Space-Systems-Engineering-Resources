@@ -44,12 +44,15 @@ If you don't know much about space, orbits, engineering, this is where you start
   * [Gentry Lee's - Systems Engineering When the Canvas Is Blank](https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn)
 * [Common Definitions of Systems Engineering- Space Systems Engineering 101 w/ NASA](https://youtu.be/rrBg-hTUM_Q?si=wnZTzlQ5YlFFIs2e)
 * [MIT OpenCourseWare: Introduction to Space Systems Engineering](https://ocw.mit.edu/courses/16-89j-space-systems-engineering-spring-2007/)
+* [https://github.com/mahran-sayed/awesome-aerospace-engineering](https://github.com/mahran-sayed/awesome-aerospace-engineering) - Aerospace Engineering learning master list
 
 
 ## Software, packages, tools
+* [open-space-toolkit](https://github.com/open-space-collective/open-space-toolkit) - collection of versatile libraries for aerospace engineering use
 * [CubeSatSim](https://github.com/alanbjohnston/CubeSatSim)- CubeSatSim is a low cost satellite emulator that runs on solar panels and batteries, transmits UHF radio telemetry, has a 3D printed frame, and can be extended by additional sensors and modules
 * [AWP](https://github.com/alfonsogonzalez/AWP) - Astrodynamics with Python
 * [openspaceproject](https://www.openspaceproject.com/) -  OpenSpace is open-source Astronomy interactive data visualization software
+* [awesome-spacecraft-engineering-datasets](https://github.com/patrickfleith/awesome-spacecraft-engineering-datasets) - list of awesome and diverse datasets related to space vehicle engineering for industry and research
 
 ## Newsletters
 Newsletters that I personally follow and recommend signing up for. 
