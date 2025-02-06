@@ -54,6 +54,9 @@ If you don't know much about space, orbits, engineering, this is where you start
 * [openspaceproject](https://www.openspaceproject.com/) -  OpenSpace is open-source Astronomy interactive data visualization software
 * [awesome-spacecraft-engineering-datasets](https://github.com/patrickfleith/awesome-spacecraft-engineering-datasets) - list of awesome and diverse datasets related to space vehicle engineering for industry and research
 
+## Lunar Resources
+* [LSIC's Lunar Engineering 101](https://lsic.jhuapl.edu/Resources/Lunar-Engineering-101.php) - Video series (8), produced by the Lunar Surface Innovation Consortium for NASA, provides essential knowledge and design considerations for developing reliable lunar surface infrastructure and systems for future robotic and crewed missions.
+
 ## Newsletters
 Newsletters that I personally follow and recommend signing up for. 
 * For trends, high-level
