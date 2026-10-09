@@ -101,6 +101,7 @@ If you don't know much about space, orbits, or engineering, this is where you st
   * [CubeSat ADCS Overview - NASA CubeSat Launch Initiative](https://www.nasa.gov/smallsat-institute/sst-soa/guidance-navigation-and-control/) - State of the art overview
 * **Propulsion**
   * [Plain English: Rocket Propulsion](https://youtu.be/7DB7-yOPkO8) - Tsiolkovsky equation and propulsion basics
+  * [Rocket Equation and Delta-v: Worked Examples](https://martianalpha.com/blog/rocket-equation-delta-v) - Written walk-through: delta-v from specific impulse, staging, and a LEO to GEO Hohmann transfer
   * [Electric Propulsion Overview - ESA](https://www.esa.int/Enabling_Support/Space_Engineering_Technology/Electric_propulsion)
 * **Power Systems**
   * [Spacecraft Power Systems Overview - NSSI](https://youtu.be/8TUxNEbXOaQ) - Solar arrays, batteries, power budgets
