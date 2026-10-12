@@ -193,6 +193,7 @@ Stay current with the industry.
 * [Space.com](https://www.space.com/) - Broad space news for general and enthusiast audiences
 * [The Planetary Society](https://www.planetary.org/) - Science-focused space exploration advocacy and news
 * [SpaceX Mission Updates](https://www.spacex.com/updates/) - Direct updates from the most active launch provider
+* [Calder Brief Space Hub](https://calder-brief.pages.dev/space-hub) - Daily space news: launches, missions, and discoveries in perspective
 
 ---
 
