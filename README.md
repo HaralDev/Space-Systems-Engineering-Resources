@@ -48,7 +48,7 @@ If you don't know much about space, orbits, or engineering, this is where you st
 
 ## Orbit Visualisers
 * [orbitalmechanics.info](https://orbitalmechanics.info/) - Interactive orbit shape visualiser (inclination, eccentricity, altitude)
-* [Celestia](https://celestia.space/) - Free, open-source real-time 3D space simulation
+* [Celestia](https://github.com/CelestiaProject/Celestia) - Free, open-source real-time 3D space simulation
 * [Gpredict](http://gpredict.oz9aec.net/) - Real-time satellite tracking and orbit prediction (desktop)
 * [OpenSpace](https://www.openspaceproject.com/) - Open-source astronomy interactive data visualisation
 * [NASA Eyes on the Solar System](https://eyes.nasa.gov/) - Real-time 3D exploration of the solar system and NASA missions
@@ -91,7 +91,7 @@ If you don't know much about space, orbits, or engineering, this is where you st
   * [Systems Engineering When the Canvas Is Blank](https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn)
 * [Common Definitions of Systems Engineering - NASA](https://youtu.be/rrBg-hTUM_Q?si=wnZTzlQ5YlFFIs2e)
 * [MIT OCW: Introduction to Space Systems Engineering](https://ocw.mit.edu/courses/16-89j-space-systems-engineering-spring-2007/) - Full lecture notes, assignments
-* [NASA Systems Engineering Handbook (SP-2016-6105)](https://www.nasa.gov/seh/) - The definitive NASA SE reference, free PDF
+* [NASA Systems Engineering Handbook (SP-2016-6105)](https://www.nasa.gov/reference/systems-engineering-handbook/) - The definitive NASA SE reference, free PDF
 * [ESA's ECSS Standards (free)](https://ecss.nl/standards/) - European space engineering standards used across industry
 * [Awesome Aerospace Engineering](https://github.com/mahran-sayed/awesome-aerospace-engineering) - Broad aerospace learning master list
 
@@ -126,7 +126,7 @@ If you don't know much about space, orbits, or engineering, this is where you st
 * [Orekit](https://www.orekit.org/) - Robust Java-based astrodynamics library backed by CNES; Python wrapper available
 * [GMAT](https://software.nasa.gov/software/GSC-17177-1) - NASA's free General Mission Analysis Tool for trajectory design and optimization
 * [OpenSpace](https://www.openspaceproject.com/) - Open-source interactive 3D space visualisation
-* [Celestia](https://celestia.space/) - Real-time 3D space simulation (desktop)
+* [Celestia](https://github.com/CelestiaProject/Celestia) - Real-time 3D space simulation (desktop)
 * [RocketPy](https://github.com/RocketPy-Team/RocketPy) - Python-based 6-DOF rocket trajectory simulator
 
 ### Mission Analysis
@@ -156,7 +156,7 @@ If you don't know much about space, orbits, or engineering, this is where you st
 
 ## Standards & References
 Useful references for professional and serious hobbyist use.
-* [NASA Systems Engineering Handbook (SP-2016-6105)](https://www.nasa.gov/seh/) - The gold standard SE handbook; free PDF download
+* [NASA Systems Engineering Handbook (SP-2016-6105)](https://www.nasa.gov/reference/systems-engineering-handbook/) - The gold standard SE handbook; free PDF download
 * [ECSS Standards](https://ecss.nl/standards/) - European Cooperation for Space Standardization; free to download, widely required in European industry
 * [SMAD - Space Mission Analysis and Design](https://www.smad.com/) - The industry "bible" for space mission design; not free but widely referenced
 * [NASA Human Integration Design Handbook (HIDH)](https://humanresearchroadmap.nasa.gov/Evidence/reports/HIDH.pdf) - For crewed systems
