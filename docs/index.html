@@ -56,6 +56,8 @@ a { color: inherit; }
 .mast-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 32px; align-items: center; padding-block: 36px 28px; }
 .eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
 h1 { font-size: clamp(30px, 4.2vw, 46px); line-height: 1.05; letter-spacing: -.02em; font-weight: 700; margin: 0 0 14px; text-wrap: balance; }
+.eyebrow .profile { color: var(--accent); text-decoration: none; font-weight: 500; }
+.eyebrow .profile:hover { text-decoration: underline; text-underline-offset: 3px; }
 .lede { color: var(--muted); max-width: 52ch; margin: 0 0 18px; font-size: 16px; }
 .stats { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--font-mono); font-size: 13px; color: var(--muted); margin: 0; padding: 0; list-style: none; }
 .stats b { color: var(--fg); font-weight: 500; font-variant-numeric: tabular-nums; }
@@ -189,7 +191,7 @@ footer a { color: var(--accent); }
 <header class="mast">
   <div class="wrap mast-inner">
     <div>
-      <p class="eyebrow">Open library · free &amp; open-source first</p>
+      <p class="eyebrow">Open library · free &amp; open-source first · curated by <a class="profile" href="https://github.com/HaralDev" target="_blank" rel="noopener">HaralDev</a></p>
       <h1>Space Systems Engineering Resources</h1>
       <p class="lede">Tools, courses, data and references for designing orbits, missions and spacecraft. Sorted from first steps to professional practice.</p>
       <ul class="stats" id="stats"></ul>
@@ -282,7 +284,7 @@ footer a { color: var(--accent); }
 
 <footer>
   <div class="wrap">
-    <span>Curated by <a href="https://github.com/HaralDev" target="_blank" rel="noopener">HaralDev</a>. Know a great resource or found a broken link?</span>
+    <span>Know a great resource or found a broken link?</span>
     <span><a href="https://github.com/HaralDev/Space-Systems-Engineering-Resources">View on GitHub</a> · <a href="https://github.com/HaralDev/Space-Systems-Engineering-Resources/issues/new">Suggest a resource</a></span>
   </div>
 </footer>
