@@ -140,7 +140,6 @@ def main():
         print(f"{len(items)} resources -> {sys.argv[2]}")
         return
 
-    page = page.replace('<meta name="claude:viewport-fit-sides" content="cover">\n', "")
     head, body = page.split("</style>", 1)
     document = (
         "<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
