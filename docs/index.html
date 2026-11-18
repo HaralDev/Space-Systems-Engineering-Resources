@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Space Systems Engineering Resources</title>
+<meta name="description" content="A searchable, beginner-to-expert library of free resources for space mission design, orbit design and spacecraft engineering.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: mission-planning sheet. Ground-track plot as the masthead, sticky search + filters, category rail on the left, card grid on the right. */
+:root {
+  --bg: #f2f4f7;
+  --surface: #ffffff;
+  --surface-2: #e8ecf2;
+  --fg: #111a27;
+  --muted: #566276;
+  --line: #d6dce5;
+  --accent: #2450d8;
+  --accent-ink: #ffffff;
+  --track: #c76a06;
+  --grid: #c9d1dc;
+  --lv-beginner: #23784a;
+  --lv-intermediate: #a8680c;
+  --lv-advanced: #b8362f;
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c121b; --surface: #131b27; --surface-2: #1a2433; --fg: #e5eaf1; --muted: #93a0b3;
+    --line: #253043; --accent: #7fa2ff; --accent-ink: #0c121b; --track: #f0a046; --grid: #243044;
+    --lv-beginner: #5fc68b; --lv-intermediate: #e3a64a; --lv-advanced: #f07a6f;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c121b; --surface: #131b27; --surface-2: #1a2433; --fg: #e5eaf1; --muted: #93a0b3;
+  --line: #253043; --accent: #7fa2ff; --accent-ink: #0c121b; --track: #f0a046; --grid: #243044;
+  --lv-beginner: #5fc68b; --lv-intermediate: #e3a64a; --lv-advanced: #f07a6f;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-sans); font-size: 15px; line-height: 1.5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* Masthead */
+.mast { border-bottom: 1px solid var(--line); }
+.mast-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 32px; align-items: center; padding-block: 36px 28px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+h1 { font-size: clamp(30px, 4.2vw, 46px); line-height: 1.05; letter-spacing: -.02em; font-weight: 700; margin: 0 0 14px; text-wrap: balance; }
+.lede { color: var(--muted); max-width: 52ch; margin: 0 0 18px; font-size: 16px; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--font-mono); font-size: 13px; color: var(--muted); margin: 0; padding: 0; list-style: none; }
+.stats b { color: var(--fg); font-weight: 500; font-variant-numeric: tabular-nums; }
+.plot { position: relative; min-width: 0; }
+.plot canvas { display: block; width: 100%; aspect-ratio: 2 / 1; max-width: 100%; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 8px; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 6px; background: var(--c); }
+
+/* Sticky controls */
+.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.controls-inner { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; padding-block: 12px; }
+.search { position: relative; flex: 1 1 280px; min-width: 0; }
+.search input { width: 100%; font: inherit; font-size: 15px; padding: 10px 40px 10px 38px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--fg); }
+.search input::placeholder { color: var(--muted); }
+.search svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+.search kbd { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-family: var(--font-mono); font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chips-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-right: 2px; }
+.chip { font: inherit; font-size: 13px; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.chip:hover { border-color: var(--muted); }
+.chip[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex: none; }
+.filter-row { display: flex; flex-wrap: wrap; gap: 8px 18px; width: 100%; }
+
+/* Body */
+.layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 32px; padding-block: 24px 64px; }
+.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 150px); align-self: start; }
+.rail ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.rail button { width: 100%; text-align: left; font: inherit; font-size: 14px; background: none; border: 0; border-radius: 6px; padding: 7px 10px; color: var(--muted); cursor: pointer; display: flex; justify-content: space-between; gap: 8px; }
+.rail button:hover { background: var(--surface-2); color: var(--fg); }
+.rail button[aria-current="true"] { background: var(--surface); color: var(--fg); font-weight: 600; box-shadow: inset 2px 0 0 var(--accent); }
+.rail .n { font-family: var(--font-mono); font-size: 12px; font-variant-numeric: tabular-nums; }
+.rail-select { display: none; }
+
+.status { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 18px; font-family: var(--font-mono); font-size: 13px; color: var(--muted); }
+.status b { color: var(--fg); font-weight: 500; }
+.linkbtn { font: inherit; background: none; border: 0; color: var(--accent); cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Start-here path */
+.path { margin-bottom: 36px; }
+.path h2, .group h2 { font-size: 20px; letter-spacing: -.01em; margin: 0 0 4px; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0 0 14px; font-size: 14px; }
+.path ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+.path li { padding: 14px 16px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0; min-width: 0; }
+.path .here { font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-left: 6px; }
+.path .step { font-family: var(--font-mono); font-size: 11px; color: var(--track); letter-spacing: .06em; }
+.path a { display: block; font-weight: 600; text-decoration: none; margin: 2px 0 4px; line-height: 1.3; }
+.path a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.path p { margin: 0; font-size: 13px; color: var(--muted); }
+
+/* Orbit playground */
+.play { margin-bottom: 44px; scroll-margin-top: 170px; }
+.play-body { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 18px; }
+.play-controls { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.ctl-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.shape-note { margin: 8px 0 0; font-size: 14px; min-height: 3em; }
+.shape-note b { font-weight: 600; }
+.slider { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: baseline; }
+.slider label { font-size: 14px; font-weight: 500; }
+.slider output { font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
+.slider input { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); }
+.slider .hint { grid-column: 1 / -1; font-size: 12px; color: var(--muted); }
+.play-btn { grid-column: 1 / -1; justify-self: start; margin-top: 4px; }
+.readout .now dd { color: var(--accent); }
+.readout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin: 0; }
+.readout div { padding: 8px 10px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0; min-width: 0; }
+.readout dt { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.readout dd { margin: 2px 0 0; font-family: var(--font-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.regime { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-2); }
+.play-views { display: grid; gap: 12px; min-width: 0; align-content: start; }
+.view-cap { display: flex; justify-content: space-between; gap: 8px; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); margin-bottom: 4px; }
+.play-views canvas { display: block; width: 100%; max-width: 100%; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+#ov { aspect-ratio: 16 / 10; }
+#pg { aspect-ratio: 2 / 1; }
+.gt-empty { font-size: 13px; color: var(--muted); }
+.play-foot { margin: 10px 0 0; font-size: 13px; color: var(--muted); }
+.play-foot a { color: var(--accent); }
+
+/* Groups and cards */
+.group { margin-bottom: 40px; scroll-margin-top: 170px; }
+.group-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 14px; }
+.group-head .n { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.subhead { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 18px 0 10px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.card:hover { border-color: var(--muted); }
+.card .topic { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.card h3 { margin: 0; font-size: 15.5px; line-height: 1.3; }
+.card h3 a { text-decoration: none; }
+.card h3 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.card h3 a::after { content: " ↗"; color: var(--muted); font-weight: 400; font-size: 13px; }
+.card .host { font-family: var(--font-mono); font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.card p { margin: 0; font-size: 14px; color: var(--fg); opacity: .86; }
+.card .extra { font-size: 13px; color: var(--muted); }
+.card .extra a { color: var(--accent); }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 6px; }
+.tag { font-family: var(--font-mono); font-size: 11.5px; padding: 2px 8px; border-radius: 4px; background: var(--surface-2); color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+.tag.level { color: var(--fg); }
+.tag.paid { color: var(--track); }
+mark { background: color-mix(in srgb, var(--track) 28%, transparent); color: inherit; border-radius: 2px; }
+
+.empty { border: 1px dashed var(--line); border-radius: var(--radius); padding: 32px; text-align: center; color: var(--muted); }
+.empty b { color: var(--fg); }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; padding-block: 22px; font-size: 14px; color: var(--muted); }
+footer a { color: var(--accent); }
+
+@media (max-width: 900px) {
+  .mast-inner { grid-template-columns: 1fr; gap: 20px; padding-block: 24px 20px; }
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .rail { display: none; }
+  .rail-select { display: block; flex: 1 1 200px; min-width: 0; }
+  .rail-select select { width: 100%; font: inherit; font-size: 14px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+  .search kbd, .status .hint { display: none; }
+  .path ol { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .play-body { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .controls { position: static; }
+  .play-body { padding: 14px; }
+  .play { scroll-margin-top: 16px; }
+  .path ol { grid-template-columns: minmax(0, 1fr); }
+  .group { scroll-margin-top: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="wrap mast-inner">
+    <div>
+      <p class="eyebrow">Open library · free &amp; open-source first</p>
+      <h1>Space Systems Engineering Resources</h1>
+      <p class="lede">Tools, courses, data and references for designing orbits, missions and spacecraft. Sorted from first steps to professional practice.</p>
+      <ul class="stats" id="stats"></ul>
+    </div>
+    <figure class="plot" style="margin:0">
+      <canvas id="gt" width="880" height="440" aria-label="Animated ground tracks of three example orbits over a latitude and longitude grid" role="img"></canvas>
+      <figcaption class="legend">
+        <span style="--c: var(--track)">ISS-like · i 51.6° · 92.7 min</span>
+        <span style="--c: var(--accent)">Sun-synchronous · i 97.4° · 94.6 min</span>
+        <span style="--c: var(--lv-beginner)">Inclined geosynchronous · i 40° · 23 h 56 min</span>
+      </figcaption>
+    </figure>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap controls-inner">
+    <label class="search" for="q">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search tools, courses, topics… e.g. GMAT, thermal, Python" autocomplete="off" aria-label="Search resources">
+      <kbd>/</kbd>
+    </label>
+    <div class="rail-select"><select id="cat-select" aria-label="Category"></select></div>
+    <div class="filter-row">
+      <div class="chips" id="levels" role="group" aria-label="Filter by level"><span class="chips-label">Level</span></div>
+      <div class="chips" id="formats" role="group" aria-label="Filter by format"><span class="chips-label">Format</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap layout">
+  <nav class="rail" aria-label="Categories"><ul id="rail"></ul></nav>
+  <main id="main">
+    <div class="status" id="status"></div>
+    <section class="path" id="path"></section>
+    <section class="play" id="playground" aria-labelledby="play-h">
+      <h2 id="play-h">Orbit playground</h2>
+      <p class="sub">Pick an orbit shape or a real mission orbit, then drag the sliders. Everything updates live from two-body orbital physics.</p>
+      <div class="play-body">
+        <div class="play-controls">
+          <div>
+            <p class="ctl-label">Orbit shape</p>
+            <div class="seg" id="shapes" role="group" aria-label="Orbit shape"></div>
+            <p class="shape-note" id="shape-note"></p>
+          </div>
+          <div>
+            <p class="ctl-label">Real orbits</p>
+            <div class="seg" id="presets" role="group" aria-label="Example orbits"></div>
+          </div>
+          <div class="slider">
+            <label for="s-alt">Lowest altitude (perigee)</label><output id="o-alt" for="s-alt"></output>
+            <input id="s-alt" type="range" min="0" max="1000" step="1">
+            <span class="hint">Below about 160 km, air drag pulls a satellite down within days.</span>
+          </div>
+          <div class="slider">
+            <label for="s-ecc">Eccentricity (how stretched)</label><output id="o-ecc" for="s-ecc"></output>
+            <input id="s-ecc" type="range" min="0" max="1.5" step="0.01">
+            <span class="hint">0 is a circle, 0 to 1 an ellipse, exactly 1 a parabola, above 1 a hyperbola.</span>
+          </div>
+          <div class="slider">
+            <label for="s-inc">Inclination (tilt to the equator)</label><output id="o-inc" for="s-inc"></output>
+            <input id="s-inc" type="range" min="0" max="180" step="0.1">
+            <span class="hint">0° follows the equator, 90° passes over the poles, above 90° goes against Earth's spin.</span>
+          </div>
+          <div class="slider">
+            <label for="s-nu">True anomaly (where it is on the orbit)</label><output id="o-nu" for="s-nu"></output>
+            <input id="s-nu" type="range" min="0" max="360" step="0.5">
+            <span class="hint">The angle from perigee to the satellite, measured in the direction it flies. 0° is perigee, 180° is apogee. Drag to pause and place the satellite.</span>
+            <button type="button" class="chip play-btn" id="play" aria-pressed="false">Pause</button>
+          </div>
+        </div>
+        <div class="play-views">
+          <div>
+            <div class="view-cap"><span>Side view, to scale</span><span id="regime" class="regime"></span></div>
+            <canvas id="ov" width="800" height="500" role="img" aria-label="The orbit drawn to scale around Earth, with a satellite moving along it"></canvas>
+          </div>
+          <dl class="readout" id="readout"></dl>
+          <div>
+            <div class="view-cap" id="gt-cap"><span>Ground track</span><span id="gt-span"></span></div>
+            <canvas id="pg" width="800" height="400" role="img" aria-label="Ground track of the chosen orbit on a latitude and longitude grid"></canvas>
+            <p class="gt-empty" id="gt-empty" hidden>Parabolic and hyperbolic paths leave Earth for good, so they have no repeating ground track.</p>
+          </div>
+        </div>
+      </div>
+      <p class="play-foot">Prefer a video? Watch <a href="https://youtu.be/pRvVK2m_wGE?si=6pnQ8IVz3JazXULe" target="_blank" rel="noopener">Basic Orbit Shapes</a>. Want it in 3D? Try <a href="https://orbitalmechanics.info/" target="_blank" rel="noopener">orbitalmechanics.info</a>.</p>
+    </section>
+    <div id="results"></div>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Curated by HaralDev. Know a great resource or found a broken link?</span>
+    <span><a href="https://github.com/HaralDev/Space-Systems-Engineering-Resources">View on GitHub</a> · <a href="https://github.com/HaralDev/Space-Systems-Engineering-Resources/issues/new">Suggest a resource</a></span>
+  </div>
+</footer>
+
+<script>
+const DATA = [{"name": "groundtracks.com", "url": "https://groundtracks.com/", "desc": "Design your first satellite in the browser and see where it flies over Earth", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Start here", "section": "Start here"}, {"name": "NASA Basics of Space Flight", "url": "https://science.nasa.gov/learn/basics-of-space-flight/", "desc": "JPL's classic free primer on the space environment, orbits and spacecraft", "level": "beginner", "formats": ["document"], "extra": [], "group": "Start here", "section": "Start here"}, {"name": "Gentry Lee — Systems Engineering When the Canvas Is Blank", "url": "https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn", "desc": "How satellites get designed from nothing", "level": "beginner", "formats": ["video"], "extra": [], "group": "Start here", "section": "Start here"}, {"name": "groundtracks.com", "url": "https://groundtracks.com/", "desc": "Browser-based satellite mission designer. Single satellites or Walker constellations with SGP4 propagation, plus access, coverage, link-budget, eclipse and orbital-decay analysis. Free, no install.", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Orbit Designers", "section": "Orbit Designers"}, {"name": "GMAT — download from NASA", "url": "https://software.nasa.gov/software/GSC-19640-1", "desc": "NASA's General Mission Analysis Tool. Open-source trajectory design, optimisation and navigation, from LEO to interplanetary. Older builds and source are on SourceForge; docs and tutorials on the GMAT Wiki.", "level": "intermediate", "formats": ["desktop"], "extra": [{"name": "SourceForge", "url": "https://sourceforge.net/projects/gmat/files/GMAT/"}, {"name": "GMAT Wiki", "url": "https://gmat.atlassian.net/wiki/spaces/GW"}], "group": "Orbit Designers", "section": "Orbit Designers"}, {"name": "NASA Trajectory Browser", "url": "https://trajbrowser.arc.nasa.gov/", "desc": "Search ready-made trajectories to planets, moons and asteroids, with porkchop plots of launch windows.", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Orbit Designers", "section": "Orbit Designers"}, {"name": "JPL Horizons", "url": "https://ssd.jpl.nasa.gov/horizons/", "desc": "Precise ephemerides (positions and velocities) for almost any solar system body or spacecraft.", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Orbit Designers", "section": "Orbit Designers"}, {"name": "Ansys STK", "url": "https://www.ansys.com/products/missions/ansys-stk", "desc": "Industry-standard mission analysis suite; a free personal-use licence is available.", "level": "intermediate", "formats": ["desktop", "paid"], "extra": [], "group": "Orbit Designers", "section": "Orbit Designers"}, {"name": "EMTG (NASA)", "url": "https://github.com/nasa/EMTG", "desc": "Evolutionary Mission Trajectory Generator: global optimisation of interplanetary missions, including low-thrust.", "level": "advanced", "formats": ["desktop"], "extra": [], "group": "Orbit Designers", "section": "Orbit Designers"}, {"name": "pykep (ESA)", "url": "https://esa.github.io/pykep/", "desc": "ESA's scientific library for interplanetary trajectory design and optimisation.", "level": "advanced", "formats": ["python"], "extra": [], "group": "Orbit Designers", "section": "Orbit Designers"}, {"name": "Tudat (TU Delft)", "url": "https://docs.tudat.space/", "desc": "TU Delft Astrodynamics Toolbox, used in Python as tudatpy. Propagation, estimation and optimisation.", "level": "advanced", "formats": ["python"], "extra": [], "group": "Orbit Designers", "section": "Orbit Designers"}, {"name": "orbitalmechanics.info", "url": "https://orbitalmechanics.info/", "desc": "Interactive orbit-shape visualiser (inclination, eccentricity, altitude).", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Orbit Visualisers", "section": "Orbit Visualisers"}, {"name": "Stuff in Space", "url": "https://stuffin.space/", "desc": "Real-time 3D view of objects in Earth orbit.", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Orbit Visualisers", "section": "Orbit Visualisers"}, {"name": "NASA Eyes on the Solar System", "url": "https://eyes.nasa.gov/", "desc": "Real-time 3D exploration of the solar system and NASA missions.", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Orbit Visualisers", "section": "Orbit Visualisers"}, {"name": "Celestia", "url": "https://celestia.space/", "desc": "Free, open-source real-time 3D space simulation.", "level": "beginner", "formats": ["desktop"], "extra": [], "group": "Orbit Visualisers", "section": "Orbit Visualisers"}, {"name": "OpenSpace", "url": "https://www.openspaceproject.com/", "desc": "Open-source interactive astrophysics visualisation used in planetariums.", "level": "intermediate", "formats": ["desktop"], "extra": [], "group": "Orbit Visualisers", "section": "Orbit Visualisers"}, {"name": "LeoLabs Visualiser", "url": "https://platform.leolabs.space/visualization", "desc": "Commercial-grade tracking of LEO objects and debris.", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Space Object Trackers", "section": "Space Object Trackers"}, {"name": "KeepTrack", "url": "https://app.keeptrack.space/", "desc": "Open-source satellite tracking and space situational awareness.", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Space Object Trackers", "section": "Space Object Trackers"}, {"name": "SatelliteTracker3D", "url": "https://satellitetracker3d.com/", "desc": "3D globe of active satellites.", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Space Object Trackers", "section": "Space Object Trackers"}, {"name": "OrbTrack", "url": "https://www.orbtrack.org/", "desc": "Track any satellite from TLE data.", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Space Object Trackers", "section": "Space Object Trackers"}, {"name": "ISS trackers", "url": "https://www.astroviewer.net/iss/en/", "desc": "Live position of the International Space Station", "level": "beginner", "formats": ["browser"], "extra": [{"name": "ISSTracker", "url": "https://isstracker.pl/en"}], "group": "Space Object Trackers", "section": "Space Object Trackers"}, {"name": "Gpredict", "url": "http://gpredict.oz9aec.net/", "desc": "Desktop tracking and prediction; drives radios and antenna rotators.", "level": "intermediate", "formats": ["desktop"], "extra": [], "group": "Space Object Trackers", "section": "Space Object Trackers"}, {"name": "CelesTrak", "url": "https://celestrak.org/", "desc": "The trusted source for TLEs, satellite catalogue and SOCRATES conjunction reports.", "level": "intermediate", "formats": ["browser"], "extra": [{"name": "SOCRATES", "url": "https://celestrak.org/SOCRATES/"}], "group": "Space Object Trackers", "section": "Space Object Trackers"}, {"name": "Space-Track.org", "url": "https://www.space-track.org/", "desc": "Official US catalogue of all tracked space objects (free account).", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Space Object Trackers", "section": "Space Object Trackers"}, {"name": "Basic Orbit Shapes", "url": "https://youtu.be/pRvVK2m_wGE?si=6pnQ8IVz3JazXULe", "desc": "Best starting point", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Orbital Mechanics"}, {"name": "Orbital Mechanics in plain English — Nick Morgan", "url": "https://youtu.be/tJiAkBxuqfs?si=x1ahbnxIJg1Faupv", "desc": "The big ideas, without heavy maths", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Orbital Mechanics"}, {"name": "Orbit Types — NSSI", "url": "https://youtu.be/BvjlBpP4zU8?si=3GGbxjtBLVI0Obvu", "desc": "LEO, MEO, GEO and HEO explained", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Orbital Mechanics"}, {"name": "Geometry of Parabolic and Hyperbolic Orbits", "url": "https://youtu.be/1-qehYJPUug?si=58UHMKfcntBF8Tro", "desc": "Escape and flyby trajectories, shown visually", "level": "intermediate", "formats": ["video"], "extra": [], "group": "Learn", "section": "Orbital Mechanics"}, {"name": "Orbital Mechanics with Python — playlist", "url": "https://youtube.com/playlist?list=PLOIRBaljOV8gn074rWFWYP1dCr2dJqWab&si=cxbmqzfNNqwVozZL", "desc": "Full series, with code in the AWP repo", "level": "intermediate", "formats": ["video"], "extra": [{"name": "AWP repo", "url": "https://github.com/alfonsogonzalez/AWP"}], "group": "Learn", "section": "Orbital Mechanics"}, {"name": "Rocket Trajectory Optimisation — RocketPy playlist", "url": "https://youtube.com/playlist?list=PLgcFtfzOxjA5CXDdKx6C8OQ_1ZsLLqwZW", "desc": "Simulation and trajectory planning", "level": "intermediate", "formats": ["video"], "extra": [], "group": "Learn", "section": "Orbital Mechanics"}, {"name": "MIT OCW 16.346 — Astrodynamics", "url": "https://ocw.mit.edu/courses/16-346-astrodynamics-fall-2008/", "desc": "Graduate lectures and notes", "level": "advanced", "formats": ["document"], "extra": [], "group": "Learn", "section": "Orbital Mechanics"}, {"name": "Space Environment — NSSI", "url": "https://youtu.be/LIqPxnoprqY?si=wCd0R8S3H1LmbyYf", "desc": "Radiation, plasma, thermal vacuum", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Space Environment"}, {"name": "NOAA Space Weather Prediction Center", "url": "https://www.swpc.noaa.gov/", "desc": "Live solar and geomagnetic activity", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Learn", "section": "Space Environment"}, {"name": "SPENVIS (ESA)", "url": "https://www.spenvis.oma.be/", "desc": "Model the radiation environment for your orbit", "level": "advanced", "formats": ["browser"], "extra": [], "group": "Learn", "section": "Space Environment"}, {"name": "So You Want to Be a Systems Engineer?", "url": "https://youtu.be/E6U_Ap2bDaE?si=HCgxD6N37XB2XAyF", "desc": "Gentry Lee on systems engineering", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Systems Engineering"}, {"name": "When the Canvas Is Blank", "url": "https://youtu.be/3S5cgLxxZ14?si=g9-W5WY7kisidHbn", "desc": "Gentry Lee on systems engineering", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Systems Engineering"}, {"name": "Common Definitions of Systems Engineering — NASA", "url": "https://youtu.be/rrBg-hTUM_Q?si=wnZTzlQ5YlFFIs2e", "desc": "Short NASA explainer of the core vocabulary", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Systems Engineering"}, {"name": "Build a CubeSat — YouTube channel", "url": "https://youtube.com/@buildacubesat?si=3oTdnVCkyS1UhjHu", "desc": "End-to-end CubeSat design", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Systems Engineering"}, {"name": "NASA Systems Engineering Handbook", "url": "https://www.nasa.gov/reference/systems-engineering-handbook/", "desc": "The definitive reference, free", "level": "intermediate", "formats": ["document"], "extra": [], "group": "Learn", "section": "Systems Engineering"}, {"name": "MIT OCW 16.89J — Space Systems Engineering", "url": "https://ocw.mit.edu/courses/16-89j-space-systems-engineering-spring-2007/", "desc": "Full lecture notes and assignments", "level": "advanced", "formats": ["document"], "extra": [], "group": "Learn", "section": "Systems Engineering"}, {"name": "NASA Small Spacecraft State-of-the-Art Report", "url": "https://www.nasa.gov/smallsat-institute/sst-soa/", "desc": "Every subsystem, with real flight hardware", "level": "intermediate", "formats": ["document"], "extra": [], "group": "Learn", "section": "Spacecraft Subsystems", "topic": "Overview"}, {"name": "Spacecraft Attitude Dynamics intro", "url": "https://youtu.be/oa_E2V8bFpI", "desc": "", "level": "intermediate", "formats": ["video"], "extra": [], "group": "Learn", "section": "Spacecraft Subsystems", "topic": "Attitude (ADCS / GNC)"}, {"name": "NASA SOA: Guidance, Navigation & Control", "url": "https://www.nasa.gov/smallsat-institute/sst-soa/guidance-navigation-and-control/", "desc": "", "level": "intermediate", "formats": ["document"], "extra": [], "group": "Learn", "section": "Spacecraft Subsystems", "topic": "Attitude (ADCS / GNC)"}, {"name": "Rocket propulsion in plain English", "url": "https://youtu.be/7DB7-yOPkO8", "desc": "", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Spacecraft Subsystems", "topic": "Propulsion"}, {"name": "What is electric propulsion? (ESA)", "url": "https://www.esa.int/Enabling_Support/Space_Engineering_Technology/What_is_Electric_propulsion", "desc": "", "level": "beginner", "formats": ["document"], "extra": [], "group": "Learn", "section": "Spacecraft Subsystems", "topic": "Propulsion"}, {"name": "Spacecraft Power Systems — NSSI", "url": "https://youtu.be/8TUxNEbXOaQ", "desc": "Solar arrays, batteries, power budgets", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Spacecraft Subsystems", "topic": "Power"}, {"name": "Thermal control (ESA)", "url": "https://www.esa.int/Enabling_Support/Space_Engineering_Technology/Thermal_control", "desc": "", "level": "beginner", "formats": ["document"], "extra": [], "group": "Learn", "section": "Spacecraft Subsystems", "topic": "Thermal"}, {"name": "NASA TFAWS", "url": "https://tfaws.nasa.gov/", "desc": "Thermal & Fluids Analysis Workshop materials", "level": "advanced", "formats": ["document"], "extra": [], "group": "Learn", "section": "Spacecraft Subsystems", "topic": "Thermal"}, {"name": "Link Budget Basics", "url": "https://youtu.be/Z-h4NkBpHJI", "desc": "", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Spacecraft Subsystems", "topic": "Communications"}, {"name": "Link budget worked examples (UNOOSA KiboCUBE)", "url": "https://www.unoosa.org/documents/pdf/Access2Space4All/KiboCUBE/KiboCUBEAcademy/Online202212/KiboCUBE_Academy_2022_Live-Session2-2.pdf", "desc": "", "level": "intermediate", "formats": ["document"], "extra": [], "group": "Learn", "section": "Spacecraft Subsystems", "topic": "Communications"}, {"name": "AMSAT education", "url": "https://www.amsat.org/education/", "desc": "", "level": "beginner", "formats": ["document"], "extra": [], "group": "Learn", "section": "Spacecraft Subsystems", "topic": "Communications"}, {"name": "NASA Mission Design Introduction", "url": "https://youtu.be/xRkKo_yM-Ps", "desc": "Trade studies and concept of operations", "level": "beginner", "formats": ["video"], "extra": [], "group": "Learn", "section": "Mission Design"}, {"name": "GMAT Wiki & tutorials", "url": "https://gmat.atlassian.net/wiki/spaces/GW", "desc": "Step-by-step sample missions for GMAT", "level": "intermediate", "formats": ["document"], "extra": [{"name": "GMAT", "url": "#-orbit-designers"}], "group": "Learn", "section": "Mission Design"}, {"name": "Fundamentals of Astrodynamics (Bate, Mueller, White)", "url": "https://www.amazon.com/Fundamentals-Astrodynamics-Roger-Bate/dp/0486600610", "desc": "Classic, very affordable textbook", "level": "intermediate", "formats": ["document", "paid"], "extra": [], "group": "Learn", "section": "Mission Design"}, {"name": "Spacecraft Dynamics & Control — Coursera (CU Boulder)", "url": "https://www.coursera.org/specializations/spacecraft-dynamics-control", "desc": "Hanspeter Schaub's attitude dynamics specialisation; free to audit", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Learn", "section": "Structured Courses"}, {"name": "ESA Academy", "url": "https://www.esa.int/Education/ESA_Academy", "desc": "Training courses and hands-on programmes for university students in ESA member states", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Learn", "section": "Structured Courses"}, {"name": "Skyfield", "url": "https://rhodesmill.org/skyfield/", "desc": "Easy, accurate positions of satellites, planets and stars in Python.", "level": "beginner", "formats": ["python"], "extra": [], "group": "Software & Tools", "section": "Astrodynamics Libraries"}, {"name": "AWP", "url": "https://github.com/alfonsogonzalez/AWP", "desc": "Astrodynamics with Python: worked orbital mechanics examples.", "level": "beginner", "formats": ["python"], "extra": [], "group": "Software & Tools", "section": "Astrodynamics Libraries"}, {"name": "Poliastro", "url": "https://github.com/poliastro/poliastro", "desc": "Pure-Python astrodynamics for quick orbit analysis (archived, still useful for learning).", "level": "intermediate", "formats": ["python"], "extra": [], "group": "Software & Tools", "section": "Astrodynamics Libraries"}, {"name": "Orekit", "url": "https://www.orekit.org/", "desc": "Robust Java astrodynamics library backed by CNES; Python wrapper available.", "level": "advanced", "formats": ["library"], "extra": [], "group": "Software & Tools", "section": "Astrodynamics Libraries"}, {"name": "open-space-toolkit", "url": "https://github.com/open-space-collective/open-space-toolkit", "desc": "C++/Python libraries for orbits, frames and physics.", "level": "advanced", "formats": ["python"], "extra": [], "group": "Software & Tools", "section": "Astrodynamics Libraries"}, {"name": "SPICE Toolkit (NASA NAIF)", "url": "https://naif.jpl.nasa.gov/naif/toolkit.html", "desc": "The standard for spacecraft geometry and ephemerides, used by almost every planetary mission.", "level": "advanced", "formats": ["library"], "extra": [], "group": "Software & Tools", "section": "Astrodynamics Libraries"}, {"name": "RocketPy", "url": "https://github.com/RocketPy-Team/RocketPy", "desc": "6-DOF rocket trajectory simulator.", "level": "intermediate", "formats": ["python"], "extra": [], "group": "Software & Tools", "section": "Astrodynamics Libraries"}, {"name": "Basilisk", "url": "https://hanspeterschaub.info/basilisk/", "desc": "Modular spacecraft simulation framework from CU Boulder; strong on ADCS.", "level": "advanced", "formats": ["python"], "extra": [], "group": "Software & Tools", "section": "Spacecraft Simulation"}, {"name": "42 (NASA)", "url": "https://software.nasa.gov/software/GSC-16720-1", "desc": "Multi-body spacecraft attitude and orbit simulation.", "level": "advanced", "formats": ["desktop"], "extra": [], "group": "Software & Tools", "section": "Spacecraft Simulation"}, {"name": "NASA core Flight System (cFS)", "url": "https://cfs.gsfc.nasa.gov/", "desc": "Reusable flight software framework flown on many NASA missions.", "level": "advanced", "formats": ["library"], "extra": [], "group": "Software & Tools", "section": "Flight Software"}, {"name": "F´ (F Prime, JPL)", "url": "https://fprime.jpl.nasa.gov/", "desc": "JPL's flight software framework for small spacecraft and instruments; flew on the Mars helicopter.", "level": "advanced", "formats": ["library"], "extra": [], "group": "Software & Tools", "section": "Flight Software"}, {"name": "SatNOGS", "url": "https://satnogs.org/", "desc": "Open global network of ground stations; download data from many CubeSats.", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Software & Tools", "section": "Ground Segment & Mission Control"}, {"name": "Open MCT (NASA)", "url": "https://nasa.github.io/openmct/", "desc": "Web-based mission control and telemetry visualisation framework.", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Software & Tools", "section": "Ground Segment & Mission Control"}, {"name": "GNU Radio", "url": "https://www.gnuradio.org/", "desc": "Open-source signal-processing toolkit, widely used for satellite radio.", "level": "intermediate", "formats": ["desktop"], "extra": [], "group": "Software & Tools", "section": "Ground Segment & Mission Control"}, {"name": "gr-satellites", "url": "https://github.com/daniestevez/gr-satellites", "desc": "GNU Radio decoders for satellite telemetry.", "level": "intermediate", "formats": ["desktop"], "extra": [], "group": "Software & Tools", "section": "Ground Segment & Mission Control"}, {"name": "Yamcs", "url": "https://yamcs.org/", "desc": "Open-source mission control system for telemetry and commanding.", "level": "advanced", "formats": ["desktop"], "extra": [], "group": "Software & Tools", "section": "Ground Segment & Mission Control"}, {"name": "OpenC3 COSMOS", "url": "https://openc3.com/", "desc": "Open-source command and control for spacecraft and test benches.", "level": "advanced", "formats": ["desktop"], "extra": [], "group": "Software & Tools", "section": "Ground Segment & Mission Control"}, {"name": "Eclipse Capella", "url": "https://mbse-capella.org/", "desc": "Free, open-source model-based systems engineering tool (Arcadia method).", "level": "intermediate", "formats": ["desktop"], "extra": [], "group": "Software & Tools", "section": "Systems Modelling (MBSE)"}, {"name": "FreeCAD", "url": "https://www.freecad.org/", "desc": "Open-source parametric 3D modeller for spacecraft structures.", "level": "intermediate", "formats": ["desktop"], "extra": [], "group": "Software & Tools", "section": "CAD & Structural"}, {"name": "OpenVSP (NASA)", "url": "https://openvsp.org/", "desc": "NASA's Vehicle Sketch Pad for aerodynamic geometry.", "level": "intermediate", "formats": ["desktop"], "extra": [], "group": "Software & Tools", "section": "CAD & Structural"}, {"name": "NASA Open Data Portal", "url": "https://data.nasa.gov/", "desc": "Thousands of mission and Earth-science datasets", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Data & References", "section": "Datasets"}, {"name": "Copernicus Data Space Ecosystem", "url": "https://dataspace.copernicus.eu/", "desc": "Free Sentinel Earth-observation data from ESA and the EU", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Data & References", "section": "Datasets"}, {"name": "ESA Space Science Data Centre", "url": "https://www.cosmos.esa.int/web/esdc", "desc": "Archives from ESA science missions", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Data & References", "section": "Datasets"}, {"name": "CelesTrak", "url": "https://celestrak.org/", "desc": "Orbital element sets for every tracked object", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Data & References", "section": "Datasets"}, {"name": "Space-Track.org", "url": "https://www.space-track.org/", "desc": "Orbital element sets for every tracked object", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Data & References", "section": "Datasets"}, {"name": "awesome-spacecraft-engineering-datasets", "url": "https://github.com/patrickfleith/awesome-spacecraft-engineering-datasets", "desc": "Curated datasets for spacecraft engineering and ML", "level": "advanced", "formats": ["browser"], "extra": [], "group": "Data & References", "section": "Datasets"}, {"name": "NASA Systems Engineering Handbook", "url": "https://www.nasa.gov/reference/systems-engineering-handbook/", "desc": "The gold standard, free PDF", "level": "intermediate", "formats": ["document"], "extra": [], "group": "Data & References", "section": "Standards & Handbooks"}, {"name": "ECSS Standards", "url": "https://ecss.nl/standards/", "desc": "European space standards; free to download and required across European industry", "level": "intermediate", "formats": ["document"], "extra": [], "group": "Data & References", "section": "Standards & Handbooks"}, {"name": "NASA Technical Reports Server (NTRS)", "url": "https://ntrs.nasa.gov/", "desc": "Free access to decades of NASA papers and reports", "level": "intermediate", "formats": ["document"], "extra": [], "group": "Data & References", "section": "Standards & Handbooks"}, {"name": "SMAD — Space Mission Analysis and Design", "url": "https://www.smad.com/", "desc": "The industry standard reference for mission design", "level": "advanced", "formats": ["document", "paid"], "extra": [], "group": "Data & References", "section": "Standards & Handbooks"}, {"name": "NASA Human Integration Design Handbook", "url": "https://humanresearchroadmap.nasa.gov/Evidence/reports/HIDH.pdf", "desc": "For crewed systems", "level": "advanced", "formats": ["document"], "extra": [], "group": "Data & References", "section": "Standards & Handbooks"}, {"name": "CubeSat Design Specification", "url": "https://www.cubesat.org/cubesatinfo", "desc": "The standard defining 1U to 12U form factors", "level": "beginner", "formats": ["document"], "extra": [], "group": "Focus Areas", "section": "CubeSats"}, {"name": "Build a CubeSat", "url": "https://youtube.com/@buildacubesat?si=3oTdnVCkyS1UhjHu", "desc": "End-to-end design series", "level": "beginner", "formats": ["video"], "extra": [], "group": "Focus Areas", "section": "CubeSats"}, {"name": "CubeSatSim", "url": "https://github.com/alanbjohnston/CubeSatSim", "desc": "Low-cost CubeSat emulator with real radio telemetry and a 3D-printed frame", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Focus Areas", "section": "CubeSats"}, {"name": "NASA CubeSat Launch Initiative", "url": "https://www.nasa.gov/kennedy/launch-services-program/cubesat-launch-initiative/", "desc": "How to get a CubeSat launched for free with NASA", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Focus Areas", "section": "CubeSats"}, {"name": "ESA Technology CubeSats", "url": "https://www.esa.int/Enabling_Support/Space_Engineering_Technology/Technology_CubeSats/ESA_Technology_CubeSats", "desc": "ESA's in-orbit demonstration CubeSat programme", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Focus Areas", "section": "CubeSats"}, {"name": "LibreCube", "url": "https://librecube.org/", "desc": "Open-source CubeSat and space systems initiative", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Focus Areas", "section": "CubeSats"}, {"name": "SatNOGS", "url": "https://satnogs.org/", "desc": "Receive your satellite's telemetry after launch", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Focus Areas", "section": "CubeSats"}, {"name": "Awesome CubeSat", "url": "https://github.com/oygx210/Awesome-Cubesat", "desc": "Community-curated CubeSat list", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Focus Areas", "section": "CubeSats"}, {"name": "LSIC Lunar Engineering 101", "url": "https://lsic.jhuapl.edu/Resources/Lunar-Engineering-101.php", "desc": "8-part video series on designing for the lunar surface", "level": "beginner", "formats": ["video"], "extra": [], "group": "Focus Areas", "section": "Moon & Lunar Surface"}, {"name": "Moon Trek (NASA)", "url": "https://trek.nasa.gov/moon/", "desc": "Explore lunar datasets and plan surface sites", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Focus Areas", "section": "Moon & Lunar Surface"}, {"name": "Lunar Reconnaissance Orbiter data", "url": "https://lunar.gsfc.nasa.gov/", "desc": "High-resolution lunar maps", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Focus Areas", "section": "Moon & Lunar Surface"}, {"name": "In-situ resource utilisation (ESA)", "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/Exploration/In-situ_resource_utilisation", "desc": "Using local resources on the Moon and Mars", "level": "intermediate", "formats": ["document"], "extra": [], "group": "Focus Areas", "section": "Moon & Lunar Surface"}, {"name": "About space debris (ESA)", "url": "https://www.esa.int/Space_Safety/Space_Debris/About_space_debris", "desc": "Clear overview of the debris problem", "level": "beginner", "formats": ["document"], "extra": [], "group": "Focus Areas", "section": "Space Debris & Sustainability"}, {"name": "LeoLabs", "url": "https://platform.leolabs.space/visualization", "desc": "See how crowded LEO really is", "level": "beginner", "formats": ["browser"], "extra": [], "group": "Focus Areas", "section": "Space Debris & Sustainability"}, {"name": "CelesTrak SOCRATES", "url": "https://celestrak.org/SOCRATES/", "desc": "Daily close-approach reports", "level": "intermediate", "formats": ["browser"], "extra": [], "group": "Focus Areas", "section": "Space Debris & Sustainability"}, {"name": "IADC Space Debris Mitigation Guidelines", "url": "https://www.iadc-home.org/documents_public/view/id/82#u", "desc": "The inter-agency reference for deorbit rules", "level": "advanced", "formats": ["document"], "extra": [], "group": "Focus Areas", "section": "Space Debris & Sustainability"}, {"name": "SpaceNews", "url": "https://spacenews.com/", "desc": "Authoritative industry news", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "News"}, {"name": "NASASpaceFlight.com", "url": "https://www.nasaspaceflight.com/", "desc": "In-depth launch and mission coverage", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "News"}, {"name": "Space.com", "url": "https://www.space.com/", "desc": "Broad space news", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "News"}, {"name": "The Planetary Society", "url": "https://www.planetary.org/", "desc": "Science-focused exploration news and advocacy", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "News"}, {"name": "SpaceX Updates", "url": "https://www.spacex.com/updates/", "desc": "Direct from the most active launch provider", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "News"}, {"name": "Payload Space", "url": "https://payloadspace.com/", "desc": "Daily briefing on the business of space", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Newsletters"}, {"name": "The Space Investor", "url": "https://thespaceinvestor.com/", "desc": "Investment and startup landscape", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Newsletters"}, {"name": "Bloomberg Business of Space", "url": "https://www.bloomberg.com/account/newsletters/business-of-space", "desc": "Weekly space business newsletter", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Newsletters"}, {"name": "Orbital Index", "url": "https://orbitalindex.com/subscribe/", "desc": "Weekly curated links on space engineering and science", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Newsletters"}, {"name": "Jatan's Space", "url": "https://jatan.space/", "desc": "Deep-dive writing on exploration and science", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Newsletters"}, {"name": "NASA newsletter", "url": "https://lp.constantcontactpages.com/sl/7ThAX6O/signup", "desc": "Mission and agency updates", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Newsletters"}, {"name": "ESA Bulletin", "url": "https://www.esa.int/ESA_Multimedia/ESA_Bulletins", "desc": "ESA's technical and programme updates", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Newsletters"}, {"name": "LEO vs MEO vs GEO satellites", "url": "https://anywaves.com/resources/blog/leo-meo-geo-satellites-definition-difference/", "desc": "Clear breakdown of orbit regimes", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Articles & Deep Dives"}, {"name": "Catalog of Earth Satellite Orbits (NASA)", "url": "https://earthobservatory.nasa.gov/features/OrbitsCatalog/page2.php", "desc": "Sun-synchronous and other Earth-observation orbits", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Articles & Deep Dives"}, {"name": "Satellite links explained (Satsig)", "url": "https://www.satsig.net/satellite-links.htm", "desc": "Practical satellite communication and link budget notes", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Articles & Deep Dives"}, {"name": "Space Stack Exchange", "url": "https://space.stackexchange.com/", "desc": "Q&A on space exploration and engineering", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Communities"}, {"name": "r/SpaceX", "url": "https://www.reddit.com/r/spacex/", "desc": "Detailed technical discussion of SpaceX missions", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Communities"}, {"name": "r/Satellite", "url": "https://www.reddit.com/r/satellite/", "desc": "Amateur satellite enthusiasts", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Communities"}, {"name": "AMSAT mailing lists", "url": "https://www.amsat.org/mailing-lists/", "desc": "Amateur satellite operator community", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Communities"}, {"name": "SatNOGS Community", "url": "https://community.libre.space/", "desc": "Open-source ground station builders", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Communities"}, {"name": "NASA Community College Aerospace Scholars", "url": "https://www.nasa.gov/learning-resources/nasa-community-college-aerospace-scholars/", "desc": "Free programme connecting students with NASA engineers", "level": null, "formats": ["browser"], "extra": [], "group": "Stay Current", "section": "Communities"}, {"name": "awesome-space", "url": "https://github.com/orbitalindex/awesome-space/blob/master/README.md", "desc": "The most comprehensive space list on GitHub", "level": null, "formats": ["browser"], "extra": [], "group": "Other Master Lists", "section": "Other Master Lists"}, {"name": "Awesome Aerospace Engineering", "url": "https://github.com/mahran-sayed/awesome-aerospace-engineering", "desc": "Broad aerospace learning resources", "level": null, "formats": ["browser"], "extra": [], "group": "Other Master Lists", "section": "Other Master Lists"}, {"name": "awesome-astronomy", "url": "https://github.com/mbiesiad/awesome-astronomy", "desc": "Astronomy tools, data and learning", "level": null, "formats": ["browser"], "extra": [], "group": "Other Master Lists", "section": "Other Master Lists"}, {"name": "Awesome-GIS", "url": "https://github.com/sshuair/awesome-gis", "desc": "Geospatial tools, relevant for Earth observation", "level": null, "formats": ["browser"], "extra": [], "group": "Other Master Lists", "section": "Other Master Lists"}, {"name": "awesome-spacecraft-engineering-datasets", "url": "https://github.com/patrickfleith/awesome-spacecraft-engineering-datasets", "desc": "Datasets for spacecraft engineering and ML", "level": null, "formats": ["browser"], "extra": [], "group": "Other Master Lists", "section": "Other Master Lists"}];
+const GROUP_ORDER = ["Orbit Designers","Orbit Visualisers","Space Object Trackers","Learn","Software & Tools","Data & References","Focus Areas","Stay Current","Other Master Lists"];
+const LEVELS = [["beginner","Beginner","--lv-beginner"],["intermediate","Intermediate","--lv-intermediate"],["advanced","Advanced","--lv-advanced"]];
+const FORMATS = [["browser","Browser"],["desktop","Desktop"],["python","Python"],["library","Library"],["document","Document"],["video","Video"],["paid","Paid"]];
+const LV = Object.fromEntries(LEVELS.map(l => [l[0], l]));
+const FM = Object.fromEntries(FORMATS);
+
+const start = DATA.filter(d => d.group === "Start here");
+const items = DATA.filter(d => d.group !== "Start here");
+const state = { q: "", levels: new Set(), formats: new Set(), group: "" };
+const slug = s => s.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const host = u => { try { return new URL(u).hostname.replace(/^www\./, ""); } catch { return ""; } };
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+
+/* Stats */
+document.getElementById("stats").innerHTML =
+  `<li><b>${items.length}</b> resources</li><li><b>${GROUP_ORDER.length}</b> categories</li><li><b>${items.filter(i => !i.formats.includes("paid")).length}</b> free</li>`;
+
+/* Chips */
+function chip(container, key, label, set, cssVar) {
+  const b = document.createElement("button");
+  b.className = "chip"; b.type = "button"; b.setAttribute("aria-pressed", "false"); b.id = `chip-${key}`;
+  b.innerHTML = (cssVar ? `<span class="dot" style="--c: var(${cssVar})"></span>` : "") + esc(label);
+  b.addEventListener("click", () => { set.has(key) ? set.delete(key) : set.add(key); b.setAttribute("aria-pressed", set.has(key)); render(); });
+  container.appendChild(b);
+}
+LEVELS.forEach(([k, l, v]) => chip(document.getElementById("levels"), k, l, state.levels, v));
+FORMATS.forEach(([k, l]) => chip(document.getElementById("formats"), k, l, state.formats));
+
+/* Category rail + select */
+const rail = document.getElementById("rail"), sel = document.getElementById("cat-select");
+function buildNav(counts) {
+  const all = Object.values(counts).reduce((a, b) => a + b, 0);
+  const entries = [["", "All categories", all], ...GROUP_ORDER.map(g => [g, g, counts[g] || 0])];
+  rail.innerHTML = entries.map(([g, l, n]) =>
+    `<li><button type="button" data-g="${esc(g)}" aria-current="${state.group === g}"><span>${esc(l)}</span><span class="n">${n}</span></button></li>`).join("");
+  sel.innerHTML = entries.map(([g, l, n]) => `<option value="${esc(g)}" ${state.group === g ? "selected" : ""}>${esc(l)} (${n})</option>`).join("");
+}
+rail.addEventListener("click", e => { const b = e.target.closest("button"); if (b) setGroup(b.dataset.g); });
+sel.addEventListener("change", () => setGroup(sel.value));
+function setGroup(g) {
+  state.group = g;
+  try { history.replaceState(null, "", g ? "#" + slug(g) : location.pathname + location.search); } catch {}
+  render();
+  document.getElementById("main").scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+
+/* Search */
+const q = document.getElementById("q");
+q.addEventListener("input", () => { state.q = q.value.trim(); render(); });
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && document.activeElement !== q && !/input|select|textarea/i.test(document.activeElement.tagName)) { e.preventDefault(); q.focus(); }
+  if (e.key === "Escape" && document.activeElement === q) { q.value = ""; state.q = ""; render(); }
+});
+
+function matches(it, terms) {
+  if (state.levels.size && !state.levels.has(it.level)) return false;
+  if (state.formats.size && ![...state.formats].every(f => it.formats.includes(f))) return false;
+  if (!terms.length) return true;
+  const hay = norm([it.name, it.desc, it.section, it.topic || "", it.group, host(it.url), ...it.extra.map(e => e.name), ...it.formats.map(f => FM[f])].join(" "));
+  return terms.every(t => hay.includes(t));
+}
+function hl(text, terms) {
+  let s = esc(text);
+  if (!terms.length) return s;
+  const re = new RegExp("(" + terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")", "gi");
+  return s.replace(re, "<mark>$1</mark>");
+}
+
+function card(it, terms) {
+  const lv = it.level ? LV[it.level] : null;
+  const topic = it.topic || (it.section !== it.group ? "" : "");
+  const extra = it.extra.length ? `<div class="extra">Also: ${it.extra.map(e => `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.name)}</a>`).join(" · ")}</div>` : "";
+  return `<article class="card">
+    ${topic ? `<span class="topic">${esc(topic)}</span>` : ""}
+    <h3><a href="${esc(it.url)}" target="_blank" rel="noopener">${hl(it.name, terms)}</a></h3>
+    <span class="host">${esc(host(it.url))}</span>
+    ${it.desc ? `<p>${hl(it.desc, terms)}</p>` : ""}
+    ${extra}
+    <div class="meta">
+      ${lv ? `<span class="tag level"><span class="dot" style="--c: var(${lv[2]})"></span>${lv[1]}</span>` : `<span class="tag">All levels</span>`}
+      ${it.formats.map(f => `<span class="tag${f === "paid" ? " paid" : ""}">${esc(FM[f])}</span>`).join("")}
+    </div>
+  </article>`;
+}
+
+function render() {
+  const terms = norm(state.q).split(/\s+/).filter(Boolean);
+  const filtered = items.filter(it => matches(it, terms));
+  const counts = {}; filtered.forEach(it => counts[it.group] = (counts[it.group] || 0) + 1);
+  buildNav(counts);
+
+  const shown = state.group ? filtered.filter(it => it.group === state.group) : filtered;
+  const active = terms.length || state.levels.size || state.formats.size || state.group;
+  document.getElementById("status").innerHTML = active
+    ? `<span>Showing <b>${shown.length}</b> of ${items.length}</span><button class="linkbtn" type="button" id="clear">Clear filters</button>`
+    : `<span>Showing all <b>${items.length}</b> resources</span><span class="hint">Press <b>/</b> to search</span>`;
+  const clr = document.getElementById("clear");
+  if (clr) clr.addEventListener("click", clearAll);
+
+  const path = document.getElementById("path");
+  path.hidden = !!active;
+  document.getElementById("playground").hidden = !!active;
+  if (!active && !path.dataset.done) {
+    path.dataset.done = "1";
+    path.innerHTML = `<h2>Start here</h2><p class="sub">New to space? Work through these in order. It takes about an afternoon.</p>
+      <ol><li><span class="step">STEP 1</span><span class="here">on this page</span><a href="#playground">Orbit playground</a><p>Learn the four orbit shapes and shape your own orbit, right here</p></li>${start.map((s, i) => `<li><span class="step">STEP ${i + 2}</span><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a><p>${esc(s.desc)}</p></li>`).join("")}</ol>`;
+  }
+
+  const res = document.getElementById("results");
+  if (!shown.length) {
+    res.innerHTML = `<div class="empty"><p><b>Nothing matches${state.q ? ` “${esc(state.q)}”` : ""}.</b></p><p>Try a broader word, or remove a level or format filter.</p><button class="linkbtn" type="button" id="clear2">Clear all filters</button></div>`;
+    document.getElementById("clear2").addEventListener("click", clearAll);
+    return;
+  }
+  const html = [];
+  for (const g of GROUP_ORDER) {
+    const list = shown.filter(it => it.group === g);
+    if (!list.length) continue;
+    const secs = [...new Set(list.map(it => it.section))];
+    html.push(`<section class="group" id="${slug(g)}"><div class="group-head"><h2>${esc(g)}</h2><span class="n">${list.length}</span></div>`);
+    for (const s of secs) {
+      if (s !== g) html.push(`<h3 class="subhead">${esc(s)}</h3>`);
+      html.push(`<div class="grid">${list.filter(it => it.section === s).map(it => card(it, terms)).join("")}</div>`);
+    }
+    html.push(`</section>`);
+  }
+  res.innerHTML = html.join("");
+}
+function clearAll() {
+  state.q = ""; q.value = ""; state.levels.clear(); state.formats.clear(); state.group = "";
+  document.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", "false"));
+  try { history.replaceState(null, "", location.pathname + location.search); } catch {}
+  render();
+}
+function fromHash() {
+  const h = location.hash.slice(1);
+  const g = GROUP_ORDER.find(x => slug(x) === h);
+  state.group = g || "";
+}
+addEventListener("hashchange", () => { fromHash(); render(); });
+fromHash();
+render();
+
+/* Ground-track plot: sub-satellite points of circular orbits over a rotating Earth */
+(function () {
+  const cv = document.getElementById("gt"), ctx = cv.getContext("2d");
+  const W = cv.width, H = cv.height, PAD_L = 44, PAD_B = 26, PAD_T = 12, PAD_R = 12;
+  const pw = W - PAD_L - PAD_R, ph = H - PAD_T - PAD_B;
+  const DEG = Math.PI / 180, OMEGA_E = 360 / 86164; // deg per second (sidereal)
+  const orbits = [
+    { inc: 51.6, period: 92.7 * 60, raan: -40, u0: 0, color: "--track", span: 3.2 },
+    { inc: 97.4, period: 94.6 * 60, raan: 10, u0: 90, color: "--accent", span: 3.2 },
+    { inc: 40, period: 86164, raan: 100, u0: 0, color: "--lv-beginner", span: 1, geo: true },
+  ];
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const X = lon => PAD_L + ((lon + 180) / 360) * pw;
+  const Y = lat => PAD_T + ((90 - lat) / 180) * ph;
+  function subpoint(o, t) {
+    const u = (o.u0 + 360 * t / o.period) * DEG, i = o.inc * DEG;
+    const lat = Math.asin(Math.sin(i) * Math.sin(u)) / DEG;
+    let lon = Math.atan2(Math.cos(i) * Math.sin(u), Math.cos(u)) / DEG + o.raan - OMEGA_E * t;
+    lon = ((lon + 180) % 360 + 360) % 360 - 180;
+    return [lon, lat];
+  }
+  function grid() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.strokeStyle = css("--grid"); ctx.lineWidth = 1;
+    ctx.fillStyle = css("--muted"); ctx.font = `500 13px ${css("--font-mono")}`;
+    for (let lon = -180; lon <= 180; lon += 30) {
+      ctx.beginPath(); ctx.moveTo(X(lon) + .5, PAD_T); ctx.lineTo(X(lon) + .5, PAD_T + ph); ctx.stroke();
+      if (lon % 90 === 0) { ctx.textAlign = lon === -180 ? "left" : lon === 180 ? "right" : "center"; ctx.fillText(lon === 0 ? "0°" : Math.abs(lon) + "°" + (lon < 0 ? "W" : "E"), X(lon), H - 7); }
+    }
+    for (let lat = -90; lat <= 90; lat += 30) {
+      ctx.beginPath(); ctx.moveTo(PAD_L, Y(lat) + .5); ctx.lineTo(PAD_L + pw, Y(lat) + .5); ctx.stroke();
+      if (Math.abs(lat) !== 90) { ctx.textAlign = "right"; ctx.fillText(lat === 0 ? "0°" : Math.abs(lat) + "°" + (lat < 0 ? "S" : "N"), PAD_L - 6, Y(lat) + 4); }
+    }
+    ctx.strokeStyle = css("--muted"); ctx.globalAlpha = .5;
+    ctx.beginPath(); ctx.moveTo(PAD_L, Y(0) + .5); ctx.lineTo(PAD_L + pw, Y(0) + .5); ctx.stroke(); ctx.globalAlpha = 1;
+  }
+  function track(o, frac) {
+    const total = o.geo ? o.period : o.period * o.span;
+    const tEnd = total * frac, steps = Math.max(2, Math.floor(600 * frac));
+    ctx.strokeStyle = css(o.color); ctx.lineWidth = 2; ctx.lineJoin = "round";
+    ctx.beginPath(); let prev = null;
+    for (let k = 0; k <= steps; k++) {
+      const [lon, lat] = subpoint(o, tEnd * k / steps);
+      if (!prev || Math.abs(lon - prev[0]) > 180) ctx.moveTo(X(lon), Y(lat)); else ctx.lineTo(X(lon), Y(lat));
+      prev = [lon, lat];
+    }
+    ctx.stroke();
+    const [lon, lat] = subpoint(o, tEnd);
+    ctx.fillStyle = css(o.color); ctx.beginPath(); ctx.arc(X(lon), Y(lat), 5, 0, 2 * Math.PI); ctx.fill();
+    ctx.strokeStyle = css("--surface"); ctx.lineWidth = 2; ctx.stroke();
+  }
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  const CYCLE = 14000; let t0 = performance.now(), raf = 0;
+  function draw(frac) { grid(); orbits.forEach(o => track(o, frac)); }
+  function loop(now) {
+    const p = ((now - t0) % (CYCLE + 2500)) / CYCLE;
+    draw(Math.min(1, Math.max(0.02, p)));
+    raf = requestAnimationFrame(loop);
+  }
+  function startAnim() { cancelAnimationFrame(raf); if (reduce.matches) draw(1); else raf = requestAnimationFrame(loop); }
+  draw(0.35); // visible resting frame before animation starts
+  startAnim();
+  reduce.addEventListener?.("change", startAnim);
+  // Redraw on theme change (colors come from CSS tokens)
+  new MutationObserver(() => reduce.matches && draw(1)).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => reduce.matches && draw(1));
+  document.addEventListener("visibilitychange", () => { if (document.hidden) cancelAnimationFrame(raf); else startAnim(); });
+})();
+
+/* Orbit playground: two-body Keplerian orbit around Earth */
+(function () {
+  const MU = 398600.4418, RE = 6378.137, SID = 86164.1, DEG = Math.PI / 180;
+  const ALT_MIN = 150, ALT_MAX = 60000;
+  const $ = id => document.getElementById(id);
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const st = { alt: 415, e: 0, inc: 51.6 };
+  const sAlt = $("s-alt"), sEcc = $("s-ecc"), sInc = $("s-inc");
+  const altToSlider = a => Math.round(1000 * Math.log(a / ALT_MIN) / Math.log(ALT_MAX / ALT_MIN));
+  const sliderToAlt = v => ALT_MIN * Math.pow(ALT_MAX / ALT_MIN, v / 1000);
+  const km = x => Math.round(x).toLocaleString("en-US") + " km";
+  const kms = x => x.toFixed(2) + " km/s";
+  function dur(s) {
+    const d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.round(s % 3600 / 60);
+    return (d ? d + " d " : "") + (h || d ? h + " h " : "") + m + " min";
+  }
+
+  const SHAPES = [
+    ["circle", "Circle", 0, "<b>Circle.</b> Same height all the way round, at a constant speed. Most satellites, from the ISS to GPS, fly close to circular orbits."],
+    ["ellipse", "Ellipse", 0.6, "<b>Ellipse.</b> Swings in close, then far out. It moves fastest at the lowest point (perigee) and slowest at the highest (apogee). Watch the dot."],
+    ["parabola", "Parabola", 1, "<b>Parabola.</b> Exactly escape speed. The spacecraft leaves Earth and never comes back, slowing towards zero as it gets far away."],
+    ["hyperbola", "Hyperbola", 1.3, "<b>Hyperbola.</b> Faster than escape speed. Used to leave Earth for other planets, and for flybys that bend a path around a planet."],
+  ];
+  const PRESETS = [
+    ["ISS", 415, 0, 51.6], ["Sun-synchronous", 700, 0, 98.2], ["GPS", 20200, 0, 55],
+    ["Geostationary", 35786, 0, 0], ["Molniya", 600, 0.737, 63.4],
+  ];
+  const shapeOf = e => e < 0.005 ? "circle" : e < 0.995 ? "ellipse" : e <= 1.005 ? "parabola" : "hyperbola";
+
+  function mkBtns(el, list, onClick) {
+    list.forEach(item => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "chip"; b.textContent = item[1] ?? item[0]; b.setAttribute("aria-pressed", "false");
+      b.addEventListener("click", () => onClick(item));
+      el.appendChild(b);
+    });
+  }
+  mkBtns($("shapes"), SHAPES, ([, , e]) => { st.e = e; if (e === 0.6 && st.alt > 20000) st.alt = 500; sync(); });
+  mkBtns($("presets"), PRESETS.map(p => [p[0], p[0], p]), ([, , p]) => { st.alt = p[1]; st.e = p[2]; st.inc = p[3]; sync(); });
+  sAlt.addEventListener("input", () => { st.alt = sliderToAlt(+sAlt.value); update(); });
+  sEcc.addEventListener("input", () => { st.e = +sEcc.value; update(); });
+  sInc.addEventListener("input", () => { st.inc = +sInc.value; update(); });
+  function sync() { sAlt.value = altToSlider(st.alt); sEcc.value = st.e; sInc.value = st.inc; update(); }
+
+  let orb = null;
+  function compute() {
+    const e = st.e, rp = RE + st.alt, closed = e < 0.995;
+    const o = { e, rp, closed, inc: st.inc, p: rp * (1 + e) };
+    o.vp = Math.sqrt(MU * (1 + e) / rp);
+    o.vesc = Math.sqrt(2 * MU / rp);
+    if (closed) {
+      o.a = rp / (1 - e); o.ra = o.a * (1 + e); o.T = 2 * Math.PI * Math.sqrt(o.a ** 3 / MU);
+      o.va = Math.sqrt(MU * (1 - e) / o.ra);
+    } else {
+      o.vinf = e > 1.005 ? Math.sqrt(MU * (e - 1) / rp) : 0;
+      o.rmax = Math.max(6 * rp, 6 * RE);
+      o.numax = Math.acos(Math.min(1, Math.max(-1, (o.p / o.rmax - 1) / e)));
+    }
+    o.argp = e > 0.05 ? 270 : 0;
+    return o;
+  }
+  function regime(o) {
+    if (!o.closed) return ["Escape trajectory", "--lv-advanced"];
+    const ha = o.ra - RE, hp = o.rp - RE;
+    if (hp < 160) return ["Re-enters within days", "--lv-advanced"];
+    if (o.e > 0.25) return ["Highly elliptical (HEO)", "--track"];
+    if (Math.abs(ha - 35786) < 300 && o.e < 0.01) return [o.inc < 1 ? "Geostationary (GEO)" : "Geosynchronous", "--accent"];
+    if (ha < 2000) return [o.inc > 96 && o.inc < 100 && ha < 1200 ? "Low Earth orbit · sun-synchronous" : "Low Earth orbit (LEO)", "--lv-beginner"];
+    if (ha < 35586) return ["Medium Earth orbit (MEO)", "--lv-intermediate"];
+    return ["High Earth orbit", "--accent"];
+  }
+  function update() {
+    orb = compute();
+    const o = orb, sh = shapeOf(o.e);
+    $("o-alt").textContent = km(st.alt);
+    $("o-ecc").textContent = o.e.toFixed(2);
+    $("o-inc").textContent = st.inc.toFixed(1) + "°" + (st.inc > 90 ? " retrograde" : "");
+    $("shapes").querySelectorAll("button").forEach((b, i) => b.setAttribute("aria-pressed", SHAPES[i][0] === sh));
+    $("presets").querySelectorAll("button").forEach((b, i) => {
+      const p = PRESETS[i]; b.setAttribute("aria-pressed", Math.abs(p[1] - st.alt) < 1 && Math.abs(p[2] - st.e) < 0.006 && Math.abs(p[3] - st.inc) < 0.06);
+    });
+    $("shape-note").innerHTML = SHAPES.find(s => s[0] === sh)[3];
+    const [rl, rc] = regime(o);
+    $("regime").innerHTML = `<span class="dot" style="--c: var(${rc})"></span>${rl}`;
+    const cells = o.closed ? [
+      ["Perigee altitude", km(o.rp - RE)], ["Apogee altitude", km(o.ra - RE)],
+      ["Period", dur(o.T)], ["Orbits per day", (SID / o.T).toFixed(2)],
+      ["Speed at perigee", kms(o.vp)], ["Speed at apogee", kms(o.va)],
+    ] : [
+      ["Perigee altitude", km(o.rp - RE)], ["Apogee", "none, it escapes"],
+      ["Speed at perigee", kms(o.vp)], ["Escape speed there", kms(o.vesc)],
+      ["Speed far away", o.vinf ? kms(o.vinf) : "approaches 0"], ["Period", "never repeats"],
+    ];
+    $("readout").innerHTML = cells.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("") +
+      `<div class="now"><dt>Altitude now</dt><dd id="ro-alt"></dd></div><div class="now"><dt>Speed now</dt><dd id="ro-v"></dd></div>`;
+    const sNu = $("s-nu");
+    if (o.closed) { sNu.min = 0; sNu.max = 360; } else { const m = Math.floor(o.numax / DEG); sNu.min = -m; sNu.max = m; }
+    const gtE = $("gt-empty"); gtE.hidden = o.closed; $("pg").hidden = !o.closed; $("gt-cap").hidden = !o.closed;
+    if (o.closed) $("gt-span").textContent = o.T < 6 * 3600 ? "3 orbits, Earth turning beneath" : o.T > SID ? "1 full orbit" : "1 day, Earth turning beneath";
+    redrawStatic();
+  }
+
+  /* Kepler: position along orbit at phase 0..1 */
+  function nuAt(o, ph) {
+    const e = o.e;
+    if (o.closed) {
+      const M = 2 * Math.PI * ph; let E = e < 0.8 ? M : Math.PI;
+      for (let k = 0; k < 30; k++) E -= (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E));
+      return 2 * Math.atan2(Math.sqrt(1 + e) * Math.sin(E / 2), Math.sqrt(1 - e) * Math.cos(E / 2));
+    }
+    if (e <= 1.005) { // parabola, Barker's equation M = D + D^3/3
+      const Dm = Math.tan(o.numax / 2), Mm = Dm + Dm ** 3 / 3, M = (2 * ph - 1) * Mm;
+      let D = M; for (let k = 0; k < 30; k++) D -= (D + D ** 3 / 3 - M) / (1 + D * D);
+      return 2 * Math.atan(D);
+    }
+    const Hm = 2 * Math.atanh(Math.sqrt((e - 1) / (e + 1)) * Math.tan(o.numax / 2));
+    const Mm = e * Math.sinh(Hm) - Hm, M = (2 * ph - 1) * Mm;
+    let H = M / (e - 1); for (let k = 0; k < 50; k++) H -= (e * Math.sinh(H) - H - M) / (e * Math.cosh(H) - 1);
+    return 2 * Math.atan(Math.sqrt((e + 1) / (e - 1)) * Math.tanh(H / 2));
+  }
+  const rAt = (o, nu) => o.p / (1 + o.e * Math.cos(nu));
+
+  /* Side view */
+  const ov = $("ov"), oc = ov.getContext("2d");
+  function sideView(nu) {
+    const o = orb, W = ov.width, H = ov.height, pad = 36;
+    const n0 = o.closed ? -Math.PI : -o.numax, n1 = o.closed ? Math.PI : o.numax, pts = [];
+    for (let k = 0; k <= 400; k++) { const nu = n0 + (n1 - n0) * k / 400, r = rAt(o, nu); pts.push([r * Math.cos(nu), r * Math.sin(nu)]); }
+    let x0 = -RE, x1 = RE, y0 = -RE, y1 = RE;
+    pts.forEach(([x, y]) => { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); });
+    const s = Math.min((W - 2 * pad) / (x1 - x0), (H - 2 * pad) / (y1 - y0));
+    const cx = W / 2 - s * (x0 + x1) / 2, cy = H / 2 + s * (y0 + y1) / 2;
+    const P = (x, y) => [cx + x * s, cy - y * s];
+    oc.clearRect(0, 0, W, H);
+    // Earth
+    const [ex, ey] = P(0, 0);
+    oc.fillStyle = css("--surface-2"); oc.strokeStyle = css("--muted"); oc.lineWidth = 1.5;
+    oc.beginPath(); oc.arc(ex, ey, Math.max(3, RE * s), 0, 2 * Math.PI); oc.fill(); oc.stroke();
+    oc.fillStyle = css("--muted"); oc.font = `500 14px ${css("--font-mono")}`; oc.textAlign = "center";
+    if (RE * s > 26) oc.fillText("Earth", ex, ey + 5);
+    // Orbit
+    oc.strokeStyle = css("--track"); oc.lineWidth = 2.5; oc.beginPath();
+    pts.forEach(([x, y], i) => { const [px, py] = P(x, y); i ? oc.lineTo(px, py) : oc.moveTo(px, py); });
+    if (o.closed) oc.closePath(); oc.stroke();
+    // Markers
+    const mark = (x, y, label, align) => {
+      const [px, py] = P(x, y); oc.fillStyle = css("--fg");
+      oc.beginPath(); oc.arc(px, py, 3.5, 0, 2 * Math.PI); oc.fill();
+      oc.font = `500 13px ${css("--font-mono")}`; oc.textAlign = align; oc.fillStyle = css("--muted");
+      oc.fillText(label, px + (align === "left" ? 8 : -8), py - 8);
+    };
+    mark(o.rp, 0, "Perigee", o.rp * s + cx > W - 80 ? "right" : "left");
+    if (o.closed && o.e >= 0.005) mark(-o.ra, 0, "Apogee", "left");
+    // True anomaly: angle at Earth from perigee to the satellite
+    const r = rAt(o, nu), [sx, sy] = P(r * Math.cos(nu), r * Math.sin(nu)), [px0, py0] = P(o.rp, 0);
+    const rho = Math.max(RE * s * 1.45, 28);
+    oc.strokeStyle = css("--muted"); oc.lineWidth = 1; oc.setLineDash([4, 4]);
+    oc.beginPath(); oc.moveTo(ex, ey); oc.lineTo(px0, py0); oc.moveTo(ex, ey); oc.lineTo(sx, sy); oc.stroke(); oc.setLineDash([]);
+    oc.strokeStyle = css("--accent"); oc.lineWidth = 2; oc.beginPath();
+    const nuN = o.closed ? ((nu % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI) : nu;
+    if (Math.abs(nuN) > 0.01) { oc.arc(ex, ey, rho, 0, -nuN, nuN > 0); oc.stroke(); }
+    const la = -nuN / 2, lr = rho + 18;
+    oc.fillStyle = css("--accent"); oc.font = `600 14px ${css("--font-mono")}`; oc.textAlign = "center";
+    oc.fillText("ν " + (nuN / DEG).toFixed(0) + "°", ex + lr * Math.cos(la), ey + lr * Math.sin(la) + 5);
+    // Satellite
+    oc.fillStyle = css("--accent"); oc.strokeStyle = css("--bg"); oc.lineWidth = 3;
+    oc.beginPath(); oc.arc(sx, sy, 7, 0, 2 * Math.PI); oc.stroke(); oc.fill();
+    // Scale bar
+    const nice = [500, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000].find(v => v * s > 60) || 500000;
+    oc.strokeStyle = css("--muted"); oc.lineWidth = 1.5; oc.beginPath();
+    oc.moveTo(14, H - 14); oc.lineTo(14 + nice * s, H - 14); oc.moveTo(14, H - 18); oc.lineTo(14, H - 10); oc.moveTo(14 + nice * s, H - 18); oc.lineTo(14 + nice * s, H - 10); oc.stroke();
+    oc.fillStyle = css("--muted"); oc.textAlign = "left"; oc.font = `500 12px ${css("--font-mono")}`;
+    oc.fillText(nice.toLocaleString("en-US") + " km", 18 + nice * s, H - 10);
+  }
+
+  /* Ground track */
+  const pg = $("pg"), gc = pg.getContext("2d");
+  function gtSpan(o) { return o.T < 6 * 3600 ? 3 * o.T : Math.max(SID, o.T); }
+  function sub(o, t) {
+    const nu = nuAt(o, ((t / o.T) % 1 + 1) % 1), u = nu + o.argp * DEG, i = o.inc * DEG;
+    const lat = Math.asin(Math.sin(i) * Math.sin(u)) / DEG;
+    let lon = Math.atan2(Math.cos(i) * Math.sin(u), Math.cos(u)) / DEG - 360 * t / SID - 30;
+    lon = ((lon + 180) % 360 + 360) % 360 - 180;
+    return [lon, lat];
+  }
+  function groundTrack(phaseT) {
+    const o = orb; if (!o.closed) return;
+    const W = pg.width, H = pg.height, L = 40, B = 24, T = 10, Rr = 10, pw = W - L - Rr, ph = H - T - B;
+    const X = lon => L + (lon + 180) / 360 * pw, Y = lat => T + (90 - lat) / 180 * ph;
+    gc.clearRect(0, 0, W, H);
+    gc.strokeStyle = css("--grid"); gc.lineWidth = 1; gc.fillStyle = css("--muted"); gc.font = `500 12px ${css("--font-mono")}`;
+    for (let lon = -180; lon <= 180; lon += 30) {
+      gc.beginPath(); gc.moveTo(X(lon) + .5, T); gc.lineTo(X(lon) + .5, T + ph); gc.stroke();
+      if (lon % 90 === 0) { gc.textAlign = lon === -180 ? "left" : lon === 180 ? "right" : "center"; gc.fillText(lon === 0 ? "0°" : Math.abs(lon) + "°" + (lon < 0 ? "W" : "E"), X(lon), H - 6); }
+    }
+    for (let lat = -90; lat <= 90; lat += 30) {
+      gc.beginPath(); gc.moveTo(L, Y(lat) + .5); gc.lineTo(L + pw, Y(lat) + .5); gc.stroke();
+      if (Math.abs(lat) !== 90) { gc.textAlign = "right"; gc.fillText(lat === 0 ? "0°" : Math.abs(lat) + "°" + (lat < 0 ? "S" : "N"), L - 5, Y(lat) + 4); }
+    }
+    const span = gtSpan(o), N = 900;
+    gc.strokeStyle = css("--track"); gc.lineWidth = 2; gc.beginPath(); let prev = null;
+    for (let k = 0; k <= N; k++) {
+      const [lon, lat] = sub(o, span * k / N);
+      if (!prev || Math.abs(lon - prev) > 180) gc.moveTo(X(lon), Y(lat)); else gc.lineTo(X(lon), Y(lat));
+      prev = lon;
+    }
+    gc.stroke();
+    const [lon, lat] = sub(o, phaseT % span);
+    gc.fillStyle = css("--accent"); gc.strokeStyle = css("--bg"); gc.lineWidth = 3;
+    gc.beginPath(); gc.arc(X(lon), Y(lat), 6, 0, 2 * Math.PI); gc.stroke(); gc.fill();
+  }
+
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+  const ORBIT_MS = 6000; let raf = 0, last = 0, visible = true, k = 0, playing = !reduce.matches;
+  function phaseOfNu(o, nu) {
+    const e = o.e;
+    if (o.closed) {
+      const E = 2 * Math.atan(Math.sqrt((1 - e) / (1 + e)) * Math.tan(nu / 2)), M = E - e * Math.sin(E);
+      return ((M / (2 * Math.PI)) % 1 + 1) % 1;
+    }
+    if (e <= 1.005) { const Dm = Math.tan(o.numax / 2), D = Math.tan(nu / 2); return ((D + D ** 3 / 3) / (Dm + Dm ** 3 / 3) + 1) / 2; }
+    const f = x => { const H = 2 * Math.atanh(Math.sqrt((e - 1) / (e + 1)) * Math.tan(x / 2)); return e * Math.sinh(H) - H; };
+    return (f(nu) / f(o.numax) + 1) / 2;
+  }
+  function draw() {
+    const o = orb, ph = ((k % 1) + 1) % 1, nu = nuAt(o, ph), r = rAt(o, nu);
+    sideView(nu);
+    if (o.closed) groundTrack(k * o.T);
+    const deg = o.closed ? ((nu / DEG) % 360 + 360) % 360 : nu / DEG;
+    $("s-nu").value = deg; $("o-nu").textContent = deg.toFixed(1) + "°";
+    const ra = $("ro-alt"), rv = $("ro-v");
+    if (ra) ra.textContent = km(r - RE);
+    if (rv) rv.textContent = kms(o.e > 0.995 && o.e <= 1.005 ? Math.sqrt(2 * MU / r) : Math.sqrt(MU * (2 / r - (1 - o.e) / o.rp)));
+  }
+  function frame(now) {
+    const dt = last ? Math.min(100, now - last) : 0; last = now;
+    k += dt / (orb.closed ? ORBIT_MS : ORBIT_MS * 1.2);
+    if (!orb.closed) k = k % 1;
+    draw();
+    raf = requestAnimationFrame(frame);
+  }
+  function redrawStatic() { if (!raf) draw(); }
+  function run() {
+    cancelAnimationFrame(raf); raf = 0; last = 0;
+    if (playing && visible && !document.hidden && !$("playground").hidden) raf = requestAnimationFrame(frame); else draw();
+  }
+  function setPlaying(p) { playing = p; const b = $("play"); b.textContent = p ? "Pause" : "Play"; b.setAttribute("aria-pressed", String(!p)); run(); }
+  $("play").addEventListener("click", () => setPlaying(!playing));
+  $("s-nu").addEventListener("input", () => {
+    const nu = +$("s-nu").value * DEG; k = Math.floor(k) + phaseOfNu(orb, nu); setPlaying(false);
+  });
+  new IntersectionObserver(es => { visible = es[0].isIntersecting; run(); }).observe($("playground"));
+  document.addEventListener("visibilitychange", run);
+  reduce.addEventListener?.("change", () => setPlaying(!reduce.matches));
+  new MutationObserver(run).observe($("playground"), { attributes: true, attributeFilter: ["hidden"] });
+  new MutationObserver(() => redrawStatic()).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener?.("change", () => redrawStatic());
+  sync();
+  setPlaying(playing);
+})();
+</script>
+</body>
+</html>
