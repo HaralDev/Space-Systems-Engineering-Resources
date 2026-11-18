@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="SpaceResource_header.webp" alt="Space Systems Engineering Resources" width="100%">
-</p>
-
 <h1 align="center">🛰️ Space Systems Engineering Resources</h1>
 
 <p align="center">
